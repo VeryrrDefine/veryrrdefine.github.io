@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrSS解析器</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+<body>
+    <script src="./jquery-3.7.1.min.js"></script>
+    输入要展开的PrSS序列（示例:<pre>(0,1,2,1,1,1)</pre>）：<input id="llparsed"><br>
+    对于LPrSS序列,会显示阶差。对于末尾为第一项的序列，会展示序数的后继<br>
+    <button onclick="calculate()">展开</button>
+    结果如下，**中的项为重复项。
+    <pre id="llres"></pre>
+    
+    <script>
+        "use strict";
+        const parsecontent = document.getElementById("llparsed")
+        function calculate() {
+            const val = parsecontent.value;
+            let prss_vals = val.split(",").map((val)=>parseInt(val.replace(/\D/g, "")));
+            let result = prss_vals.slice(0, prss_vals.length-1);
+            const last = prss_vals.at(-1);
+            let bad = Infinity;
+            for (let i = result.length; i >= 0; i--) {
+                if (result[i] < last){
+                    bad = i
+                    break;
+                }
+            }
+            if (!isFinite(bad)) {
+                llres.innerText = `(${result.join(",")})+1`
+                return ;
+            }
+            result = result
+            let resText = "("
+            for (let i = 0;i<result.length; i++) {
+                if (i==bad) resText+="*";
+                resText+=result[i];
+                if (i!=result.length-1) resText+=",";
+                else resText+="*)";
+            }
+            let e = prss_vals.at(-1)-result[bad]
+            if (e>1) resText+="[+"+(e-1).toString()+"]"
+            llres.innerText=resText
+            return result;
+        }
+    </script>
+</body>
+</html>
