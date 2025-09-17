@@ -41,8 +41,13 @@
                 if (i!=result.length-1) resText+=",";
                 else resText+="*)";
             }
-            let e = prss_vals.at(-1)-result[bad]
-            if (e>1) resText+="[+"+(e-1).toString()+"]"
+            let e = prss_vals.at(-1)-result[bad]-1
+
+            let parse_sequ = result.slice(bad);
+            parse_sequ = parse_sequ.concat(parse_sequ.map(x=>x+e)).concat(parse_sequ.map(x=>x+e*2)) .concat(parse_sequ.map(x=>x+e*3)) 
+            parse_sequ = result.slice(0, bad).concat(parse_sequ);
+            if (e>1) resText+="[+"+(e).toString()+"]";
+            resText+="\n\n"+`(${parse_sequ.slice(",")})`
             llres.innerText=resText
             return result;
         }
