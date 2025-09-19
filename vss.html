@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSS - VeryrrDefine的主页</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>VSS</h1>
+    <p>VSS v1.04(全称 VeryrrDefine's Sequence with +X System Version 1.04)</p>
+
+    <p>序列的项包含(自然数),(+正整数),(-正整数)两个类型</p>
+
+    <p>(+正整数)与(-正整数)互相匹配。</p>
+
+    <h2>规则</h2>
+
+    <h3>R0 空序列规则:</h3>
+    <p>空序列()=0</p>
+    <h3>R0.1 序列合法性规则:</h3>
+    <p>一个序列里的项只能是(自然数),(+正整数),(-正整数)。</p>
+    <h3>R1 后继规则:</h3>
+    <p>对于序列 A,如果序列内部+x 和-x 可以一对一匹配，则,(...A)(0)=A~+1</p>
+    <h3>R2 内部空序列处理规则:</h3>
+    <p>#(+A)(-A)=#</p>
+    <h3>R3 外层末项(x),x>0 规则:</h3>
+    <p>对于序列 B，通过不含-x 的最末项找坏根（比末项 y 小，而且只找(+x)(-x)外面的）</p>
+    <p>把坏根到倒数第二项的部分称为 A，0 到坏根前 1 项称为 C，末项数字称为 D</p>
+    <p>则有 B=sup CA,CA(+D)A(-D),CA(+D)A(+D)A(-D)(-D),...</p>
+    <h3>R4 继续展开内部序列规则:</h3>
+    <p>若序列形如#(+X)...(y)(-X),y>=2，则展开(+X)(-X)内部的序列。</p>
+    <h3>R5 内部序列(+X)(y) y>0 规则:</h3>
+    <p>对于 A=#$(+x)%(y)(-x) x>=1，</p>
+    <p>通过不含-x的最末项找坏根（比末项y小，而且只找(+x)(-x)外面的）</p>
+    <p>把坏根到(+x)前的部分称为$，</p>
+    <p>(+x)后到倒数第二项的部分成为%，</p>
+    <p>0 到坏根前 1 项称为#，</p>
+    <p>有 A=<br />
+        sup { #$(+x)%(-x),<br />
+        #$(+x)%$(+x)%(-x)(-x),<br />
+        #$(+x)%$(+x)%$(+x)%(-x)(-x)(-x),<br />
+        ...<br />
+        }</p>
+    <h3>R6 内部序列(+X)(0)规则:</h3>
+    <p>对于 A=#$(+x)%(0)(-x) x>=1，</p>
+    <p>通过不含-x 的最末项找坏根（比 x 小，而且只找(+x)(-x)外面的）</p>
+    <p>把坏根到(+x)前的部分称为$，</p>
+    <p>(+x)后到倒数第二项的部分成为%，</p>
+    <p>0 到坏根前 1 项称为#，</p>
+    <p>有 A=<br />
+        sup { #$(+x)%(-x),<br />
+        #$(+x)%(-x)$(+x)%(-x),<br />
+        #$(+x)%(-x)$(+x)%(-x)$(+x)%(-x),<br />
+        ...<br />
+        }</p>
+    <h3>R7 内部序列规则:</h3>
+    <p>R1-R6 的规则适用于(+x)(-x)内的序列。</p>
+    <h3>R8 序列极限定义:</h3>
+    <p>VSS v1.04 序列的极限为(0)(1)(2)(3)(4)...</p>
+
+    <h2>扽西</h2>
+    <table id="replace_symbols">
+        <thead>
+            <th>VSS</th>
+            <th>BOCF & ω, \eps, \zet</th>
+            <th>HPrSS</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Blank</td>
+                <td>0</td>
+                <td>Blank</td>
+            </tr>
+            <tr>
+                <td>(0)</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>(0)(0)</td>
+                <td>2</td>
+                <td>1,1</td>
+            </tr>
+            <tr>
+                <td>(0)(0)(0)</td>
+                <td>3</td>
+                <td>1,1,1</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(-1) #R6</td>
+                <td>ω</td>
+                <td>1,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(-1)(0)</td>
+                <td>ω+1</td>
+                <td>1,2,1</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(-1)(0)(0)</td>
+                <td>ω+2</td>
+                <td>1,2,1,1</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(-1)(0)(+1)(0)(-1)</td>
+                <td>ω2</td>
+                <td>1,2,1,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(-1)(0)(+1)(0)(-1)(0)(+1)(0)(-1)</td>
+                <td>ω2</td>
+                <td>1,2,1,2,1,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(0)(-1)</td>
+                <td>ω<sup>2</sup></td>
+                <td>1,2,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(0)(-1)(0)(+1)(0)(0)(-1)</td>
+                <td>ω<sup>2</sup>2</td>
+                <td>1,2,2,1,2,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(0)(0)(-1)</td>
+                <td>ω<sup>3</sup></td>
+                <td>1,2,2,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)(0)(0)(0)(-1)</td>
+                <td>ω<sup>4</sup></td>
+                <td>1,2,2,2,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)<sup>(0)(+1)(0)(-1)</sup>(-1)</td>
+                <td>\w<sup>\w</sup></td>
+                <td>1,2,3</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)<sup>(0)(+1)(0)(-1)(0)</sup>(-1)</td>
+                <td>\w<sup>\w+1</sup></td>
+                <td>1,2,3,2</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)<sup>(0)(+1)(0)(-1)(0)(+1)(0)(-1)</sup>(-1)</td>
+                <td>\w<sup>\w2</sup></td>
+                <td>1,2,3,2,3</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)<sup>(0)(+1)(0)(0)(-1)</sup>(-1)</td>
+                <td>\w<sup>\w<sup>2</sup></sup></td>
+                <td>1,2,3,3</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)<sup>(0)(+1)(0)(0)(0)(-1)</sup>(-1)</td>
+                <td>\w<sup>\w<sup>3</sup></sup></td>
+                <td>1,2,3,3,3</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)<sup>(0)(+1)<sup>(0)(+1)<sup>(0)</sup>(-1)</sup>(-1)</sup>(-1)</td>
+                <td>\w<sup>\w<sup>\w</sup></sup></td>
+                <td>1,2,3,4</td>
+            </tr>
+            <tr>
+                <td>(0)(+1)<sup>(0)(+1)<sup>(0)(+1)<sup>(0)(+1)<sup>(0)</sup>(-1)</sup>(-1)</sup>(-1)</sup>(-1)</td>
+                <td>\w<sup>\w<sup>\w<sup>\w</sup></sup></sup></td>
+                <td>1,2,3,4,5</td>
+            </tr>
+            <tr>
+                <td>(0)(1)</td>
+                <td>\eps<sub>0</sub></td>
+                <td>1,3</td>
+            </tr>
+            <tr>
+                <td>这里应该就可以发现，(+1)(-1)里面的序列和VSS是同一个类型，和阶差不一样。后面的简略写</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(0)(-2)</td>
+                <td>\eps<sub>\w</sub></td>
+                <td>1,3,4</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(0)(1)(-2)</td>
+                <td>\eps<sub>\eps<sub>0</sub></sub></td>
+                <td>1,3,4,6</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(1)(-2)</td>
+                <td>\zet<sub>0</sub></td>
+                <td>1,3,5</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(1)(1)(-2)</td>
+                <td>\phi(3,0)</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(1)(+2)(0)(-2)(-2)</td>
+                <td>\phi(\w,0)</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(1)(+2)(1)(-2)(-2)</td>
+                <td>\phi(1,0,0)</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(1)(+2)(1)(+2)(1)(-2)(-2)(-2)</td>
+                <td>\phi(1,0,0,0)</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(+2)(1)(+2)(1)(+2)(1)(+2)(1)(-2)(-2)(-2)(-2)</td>
+                <td>\phi(1@(1,0))</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(2)</td>
+                <td>\psi(\W<sub>2</sub>)</td>
+                <td>1,4</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(2)(1)(2)</td>
+                <td>\psi(\W<sub>2</sub>+\psi<sub>1</sub>(\W<sub>2</sub>))</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(2)(2)</td>
+                <td>\psi(\W<sub>2</sub>2)</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(2)(+3)(0)(-3)</td>
+                <td>\psi(\W<sub>2</sub>\w)</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(2)(+3)(2)(-3)</td>
+                <td>\psi(\W<sub>2</sub><sup>2</sup>)</td>
+            </tr>
+            <tr>
+                <td>(0)(1)(2)(3)</td>
+                <td>\psi(\W<sub>3</sub>)</td>
+                <td>1,5</td>
+            </tr>
+            <tr>
+                <td>Limit</td>
+                <td>\psi(\W<sub>\w</sub>)</td>
+                <td>Limit</td>
+            </tr>
+            <tr>
+                <td>VSS在模式上和BOCF的\psi<sub>x</sub>函数似乎有关系，可能和PSS hydra有关系，有可能可以互相转换</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        var el = document.getElementById("replace_symbols");
+        if (el) {
+            el.innerHTML = el.innerHTML
+                .replace(/\\psi/g, "ψ")
+                .replace(/\\W/g, "Ω")
+                .replace(/\\w/g, "ω")
+                .replace(/\\phi/g, "φ")
+                .replace(/\\eps/g, "ε")
+                .replace(/\\zet/g, "ζ")
+        }
+    </script>
+</body>
+
+</html>
