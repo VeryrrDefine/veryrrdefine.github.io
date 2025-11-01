@@ -301,31 +301,31 @@
 
             }
             try {
-                player.lastUpdated -= offset;
-                player.saveCreateTime -= offset;
+                player.lastUpdated += offset;
+                player.saveCreateTime += offset;
                 for (const k in player.stat.recent10AddReset) {
-                    player.stat.recent10AddReset[k].last -= offset
+                    player.stat.recent10AddReset[k].last += offset
                 }
                 for (const k in player.stat.recent10MulReset) {
-                    player.stat.recent10MulReset[k].last -= offset
+                    player.stat.recent10MulReset[k].last += offset
                 }
                 for (const k in player.stat.recent10ExpReset) {
-                    player.stat.recent10ExpReset[k].last -= offset
+                    player.stat.recent10ExpReset[k].last += offset
                 }
                 for (const k in player.stat.recent10HydraReset) {
-                    player.stat.recent10HydraReset[k].last -= offset
+                    player.stat.recent10HydraReset[k].last += offset
                 }
                 for (const k in player.stat.recent10NonRecReset) {
-                    player.stat.recent10NonRecReset[k].last -= offset
+                    player.stat.recent10NonRecReset[k].last += offset
                 }
                 for (const k in player.stat.recent10PTOReset) {
-                    player.stat.recent10PTOReset[k].last -= offset
+                    player.stat.recent10PTOReset[k].last += offset
                 }
-                player.timeshard.cd[0] -= offset
-                player.timeshard.cd[1] -= offset
-                player.timeshard.cd[2] -= offset
+                player.timeshard.cd[0] += offset
+                player.timeshard.cd[1] += offset
+                player.timeshard.cd[2] += offset
 
-                player.garden.lastIG -= offset
+                player.garden.lastIG += offset
                 player.backup = null;
                 result.innerText = "穿越成功，请点击“导出存档”获得存档文件，" + `现在的存档于${formatTimestamp(player.saveCreateTime)}创建。`;
             } catch (e) {
