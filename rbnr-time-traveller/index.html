@@ -346,6 +346,34 @@
             a.download = 'RBNR Modified Save.txt';
             a.click();
         }
+
+
+        function loadFromString(saveContent) {
+            const deserialized = saveSerializer.deserialize(saveContent);
+            player = deserialized;
+            result.innerText = "解析成功，存档于" + `${formatTimestamp(player.saveCreateTime)}创建。`
+        }
+        function import_file() {
+            const a = document.createElement('input');
+            a.setAttribute('type', 'file');
+            a.setAttribute('accept', 'text/plain');
+            a.click();
+            a.onchange = () => {
+                const fr = new FileReader();
+                if (a.files == null) return void alert('未选择文件');
+                fr.onload = () => {
+                    const save = fr.result;
+                    if (typeof save == 'string') {
+                        try {
+                            loadFromString(save);
+                        } catch {
+                            console.error('Cannot import save');
+                        }
+                    }
+                };
+                fr.readAsText(a.files[0]);
+            };
+        }
     </script>
 </head>
 
@@ -358,6 +386,7 @@
     <label for="trav">请输入需要穿越的秒数<input name="trav" id="trav" type="number" /></label>
     <button onclick="doTraveling()">穿越</button>
     <button onclick="export_file()">导出存档</button>
+    <button onclick="import_file()">导入存档</button>
 </body>
 
 </html>
