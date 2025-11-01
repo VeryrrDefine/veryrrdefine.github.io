@@ -63,7 +63,7 @@
     <p>此外，我还发展了和VSS很相似，但尚没有明确定义的VSS1.1，在ψ(Ω<sub>2</sub>)后出现分歧</p>
     <p>本人已发现VSS v1.05和BMS可以相互转换。</p>
     <h2>扽西</h2>
-    <table id="replace_symbols">
+    <table class="replace_symbols">
         <thead>
             <th>VSS</th>
             <th>BOCF & ω, \eps, \zet</th>
@@ -250,18 +250,7 @@
             </tr>
         </tbody>
     </table>
-    <script>
-        var el = document.getElementById("replace_symbols");
-        if (el) {
-            el.innerHTML = el.innerHTML
-                .replace(/\\psi/g, "ψ")
-                .replace(/\\W/g, "Ω")
-                .replace(/\\w/g, "ω")
-                .replace(/\\phi/g, "φ")
-                .replace(/\\eps/g, "ε")
-                .replace(/\\zet/g, "ζ")
-        }
-    </script>
+    <script src="replace_symbol.js"></script>
 </body>
 
 </html>
