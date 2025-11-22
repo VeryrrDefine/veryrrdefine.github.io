@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../RBNR"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "myhomepage"
+	}
+}
