@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeryrrDefine的主页</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>Random Sentence Generator</h1>
+    输入模板字符串: <br /><textarea id="template"
+        style="width: 300px; height: 300px;">为什么{noun}在{verb}{noun}的时候{noun}会去{noun}{verb}{noun}</textarea>
+    <br />
+    <button onclick="generateUI()">生成</button>
+    <p>结果: <span id="result"></span></p>
+    <p>注:</p>
+    <p>{noun} 随机名词</p>
+    <p>{adj} 随机形容词</p>
+    <p>{verb} 随机动词</p>
+    <p>示例模板</p>
+    <p>为什么{noun}在{verb}{noun}的时候{noun}会去{noun}{verb}{noun}?
+        因为{verb}{noun}把{noun}的{noun}变成{noun},正{verb}着楼下{noun}的{noun}{verb}{noun}时, {noun}突然开始{verb}{noun}，
+        就导致{noun}与{noun}开始{verb}{noun}，误把{noun}当成{noun}</p>
+    <p>那我问你, 你{verb}的时候你的{noun}在干嘛？ 你的{noun}怎么尖尖的</p>
+    <script>
+        const nouns = ["北极熊", "沙发", '主页', "群聊", "群聊", "图片", "水龙头", "牛排", "骆驼", "课本",
+            "作业", "小朋友"
+        ];
+        const verbs = ["去", "生成", '跳', '按', "爱", "闪烁", "吃", "做", "制作", "激活", "输出"];
+        function randomElement(x) {
+            let a = x.length;
+            return x[Math.floor(Math.random() * a)];
+        }
+        function generate(str) {
+            let a = str;
+            a = a.replaceAll("{noun}", function () {
+                return randomElement(nouns)
+            })
+            a = a.replaceAll("{verb}", function () {
+                return randomElement(verbs)
+            })
+            return a;
+        }
+        function generateUI() {
+            result.innerHTML = generate(template.value)
+        }
+    </script>
+</body>
+
+</html>
