@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>序数标 - VeryrrDefine的主页</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>BMS分析与比对</h1>
+    <table class="replace_symbols">
+        <thead>
+            <th>序数</th>
+        </thead>
+        <tbody id="tablegen">
+
+        </tbody>
+    </table>
+    <script>
+        const analtable = [
+            ["0"],
+            ["1"],
+            ["2"],
+            ["ω"],
+            ["ω+1"],
+            ["ω×2"],
+            ["ω^2"],
+            ["ω^2×2"],
+            ["ω^3"],
+            ["ω^ω"],
+            ["ω^ω^ω"],
+            ["ε_0"],
+            ["ε_1"],
+            ["ε_ω"],
+            ["ε_ε_0"],
+            ["ζ_0"],
+            ["ε_{ζ_0+1}"],
+            ["ε_{ε_{ζ_0+1}}"],
+            ["ζ_1"],
+            ["ζ_ω"],
+            ["ζ_ε_0"],
+            ["ζ_ζ_0"],
+            ["η_0"],
+            ["ε_{η_0+1}"],
+            ["ε_{ε_{η_0+1}}"],
+            ["ζ_{η_0+1}"],
+            ["ζ_{ζ_{η_0+1}}"],
+            ["η_1"],
+            ["φ(4,0)"],
+            ["φ(5,0)"],
+            ["φ(ω,0)"],
+            ["\\eps_{φ(ω,0)+1}"],
+            ["\\zet_{φ(ω,0)+1}"],
+            ["\\phi(4,φ(ω,0)+1)"],
+            ["\\phi(5,φ(ω,0)+1)"],
+            ["φ(ω,1)"],
+            ["φ(ω,2)"],
+            ["φ(ω,\\w)"],
+            ["φ(ω,\\eps_0)"],
+            ["φ(ω,\\phi(\\w,0))"],
+            ["φ(ω+1,0)"],
+            ["φ(ω2,0)"],
+            ["φ(ω^2,0)"],
+            ["φ(\\eps_0,0)"],
+            ["φ(\\zet_0,0)"],
+            ["φ(φ(ω,0),0)"],
+            ["φ(φ(φ(ω,0),0),0)"],
+            ["Γ_0", '\\psi(Ω^Ω)'],
+            ["\\eps_{Γ_0+1}", '\\psi(Ω^Ω +Ω)'],
+            ["\\phi(\\w, Γ_0+1)", '\\psi(Ω^Ω +Ω^ω)'],
+            ["\\phi(Γ_0, Γ_0+1)", '\\psi(Ω^Ω +Ω^psi(Ω^Ω))'],
+            ["\\phi(\\phi(Γ_0, Γ_0+1), Γ_0+1)", '\\psi(Ω^Ω +Ω^psi(Ω^Ω +Ω^psi(Ω^Ω)))'],
+            ["Γ_1", '\\psi(Ω^Ω *2)'],
+
+        ];
+        for (let i = 0; i < analtable.length; i++) {
+            const trelement = document.createElement("tr");
+
+            for (let j = 0; j < analtable[i].length; j++) {
+                const tdelement = document.createElement('td');
+                tdelement.innerHTML = analtable[i][j];
+                trelement.appendChild(tdelement);
+            }
+            tablegen.appendChild(trelement)
+        }
+    </script>
+    <script src="replace_symbol.js"></script>
+</body>
