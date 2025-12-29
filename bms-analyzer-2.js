@@ -263,7 +263,9 @@ function display(ordinal, y) {
       // 相当于 p(T^x * Tx)
       admSub = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
     }
-    console.log("l", admSub);
+    console.log("admSub1", admSub);
+
+    // p(T指数*(去掉最后一项+T))
     let r = "p(" + mul(lastTpowX, add(lastTpowXsplitedT[0], T)) + ")";
     let [a, b] = split(lastTpowXsplitedT[1], r);
     a = "p(" + mul(lastTpowX, a) + ")";
@@ -272,6 +274,7 @@ function display(ordinal, y) {
       a = "0";
     }
     admSub = add(admSub, add(a, b));
+    console.log("admSub2", admSub);
     let admMain = "";
     if (
       splitTermToLastAndPrevious(getPpArgument(ordinal))[1][0] == "P" &&
@@ -623,6 +626,5 @@ function calculate() {
   Q += `<tr><td>Σ</td><td colspan=7>${""}</td></tr>`;
   document.getElementById("output2").innerHTML = Q;
 }
-document.getElementById("input").value =
-  "(0)(1,1,1)(2,1,1)(3,1,1)(1,1,1)(2,1,1)(3,1)(4,2,1)(5,2,1)(6,2,1)(2,1)(3,2,1)(4,2,1)(5,2,1)";
+document.getElementById("input").value = "(0)(1,1,1)";
 calculate();
