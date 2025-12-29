@@ -253,7 +253,7 @@ function display(ordinal, y) {
     let lastTpowX = exp(mul(T, argTExponent));
     lastTpowX = div(getPpArgument(ordinal), lastTpowX);
     //console.log(arg(x),k,m)
-    //T^x中的x分成T*x, y<T两部分
+    //T^x中的x分成T*?=x, y<T两部分
     let lastTpowXsplitedT = splitT(lastTpowX);
     let t = exp(add(mul(T, argTExponent), T));
     let l = null;
