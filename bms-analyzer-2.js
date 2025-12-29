@@ -196,7 +196,45 @@ function hasRest(x) {
     return true;
   }
   return false;
-} // I could make it do up to K if I wanted, but I'm running low on time... since tomorrow I'm going to Korea (19 Dec 2025)
+}
+
+function handle(ordinal) {
+  //获取p内最后一项的ω指数除以T
+  //得到x p(ω^(Tx))，相当于p(T^x)
+  let argTExponent = div(
+    log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]),
+    T
+  );
+  //获取最后一项的T^x
+  let lastTpowX = exp(mul(T, argTExponent));
+  lastTpowX = div(getPpArgument(ordinal), lastTpowX);
+  //console.log(arg(x),k,m)
+  //T^x中的x分成T*?=x, y<T两部分
+  let lastTpowXsplitedT = splitT(lastTpowX);
+  let admSub = null;
+  if (lastTpowXsplitedT[0] == "0") {
+    admSub = "0";
+  } else {
+    // T^x乘以指数分出的T再套个p
+    // 相当于 p(T^x * Tx)
+    admSub = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
+  }
+  console.log("admSub1", admSub);
+
+  // p(T指数*(去掉最后一项+T))
+  let r = "p(" + mul(lastTpowX, add(lastTpowXsplitedT[0], T)) + ")";
+  let [a, b] = split(lastTpowXsplitedT[1], r);
+  a = "p(" + mul(lastTpowX, a) + ")";
+  //console.log(k,r,l,a,b)
+  if (a == ONE) {
+    a = "0";
+  }
+  admSub = add(admSub, add(a, b));
+  console.log("admSub2", admSub);
+  return { b, argTExponent, admSub };
+}
+
+// I could make it do up to K if I wanted, but I'm running low on time... since tomorrow I'm going to Korea (19 Dec 2025)
 // also does not handle I(ψ(T^M),1) because it's too complicated
 function display2(ordinal, y) {
   //if(!y){return 'X'}
@@ -231,6 +269,8 @@ function display2(ordinal, y) {
   );
   //console.log(f,g,h,'',c,d);
   if (ordinalMul == ONE && addition == "0") {
+    // const datas = handleOrd(x);
+    // ordinal, psiT, logOrdinal,
     if (exp(ordinal) != ordinal) {
       if (ordinal == OMEGA) {
         return "ω";
@@ -243,38 +283,9 @@ function display2(ordinal, y) {
     if (ordinal == T) {
       return "T";
     }
-    //获取p内最后一项的ω指数除以T
-    //得到x p(ω^(Tx))，相当于p(T^x)
-    let argTExponent = div(
-      log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]),
-      T
-    );
-    //获取最后一项的T^x
-    let lastTpowX = exp(mul(T, argTExponent));
-    lastTpowX = div(getPpArgument(ordinal), lastTpowX);
-    //console.log(arg(x),k,m)
-    //T^x中的x分成T*?=x, y<T两部分
-    let lastTpowXsplitedT = splitT(lastTpowX);
-    let admSub = null;
-    if (lastTpowXsplitedT[0] == "0") {
-      admSub = "0";
-    } else {
-      // T^x乘以指数分出的T再套个p
-      // 相当于 p(T^x * Tx)
-      admSub = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
-    }
-    console.log("admSub1", admSub);
-
-    // p(T指数*(去掉最后一项+T))
-    let r = "p(" + mul(lastTpowX, add(lastTpowXsplitedT[0], T)) + ")";
-    let [a, b] = split(lastTpowXsplitedT[1], r);
-    a = "p(" + mul(lastTpowX, a) + ")";
-    //console.log(k,r,l,a,b)
-    if (a == ONE) {
-      a = "0";
-    }
-    admSub = add(admSub, add(a, b));
-    console.log("admSub2", admSub);
+    //这里start
+    const { b, argTExponent, admSub } = handle(ordinal);
+    // 这里end
     let admMain = "";
     if (
       // 这里不知道，可能和ψ(T+Ω_2)有关
