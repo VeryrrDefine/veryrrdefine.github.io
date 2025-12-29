@@ -332,9 +332,15 @@ function display2(ordinal, y) {
   return finRes;
 }
 function displayPsi(x) {
-  let a = display2(x);
+  let tSp = splitT(x);
+  let tMul = div(tSp[0], T);
 
-  return `ψ(${a})`;
+  let a = display2(sub(x, tSp[0]));
+
+  return `ψ<sub>${tMulToAdm(tMul)}</sub>(${a})`;
+}
+function tMulToAdm(x) {
+  return `Ω<sub>${display2(add(x, ONE))}</sub>`;
 }
 function display(x) {
   let q = display2(x);
