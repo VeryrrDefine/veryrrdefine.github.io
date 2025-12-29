@@ -249,9 +249,7 @@ function display(ordinal, y) {
       log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]),
       T
     );
-    let k = exp(
-      mul(T, div(log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]), T))
-    );
+    let k = exp(mul(T, argTExponent));
     k = div(getPpArgument(ordinal), k);
     //console.log(arg(x),k,m)
     k = splitT(k);
