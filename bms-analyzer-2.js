@@ -255,15 +255,15 @@ function display(ordinal, y) {
     //console.log(arg(x),k,m)
     //T^x中的x分成T*?=x, y<T两部分
     let lastTpowXsplitedT = splitT(lastTpowX);
-    let l = null;
+    let admSub = null;
     if (lastTpowXsplitedT[0] == "0") {
-      l = "0";
+      admSub = "0";
     } else {
       // T^x乘以指数分出的T再套个p
       // 相当于 p(T^x * Tx)
-      l = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
+      admSub = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
     }
-    console.log("l", l);
+    console.log("l", admSub);
     let r = "p(" + mul(lastTpowX, add(lastTpowXsplitedT[0], T)) + ")";
     let [a, b] = split(lastTpowXsplitedT[1], r);
     a = "p(" + mul(lastTpowX, a) + ")";
@@ -271,7 +271,7 @@ function display(ordinal, y) {
     if (a == ONE) {
       a = "0";
     }
-    l = add(l, add(a, b));
+    admSub = add(admSub, add(a, b));
     let admMain = "";
     if (
       splitTermToLastAndPrevious(getPpArgument(ordinal))[1][0] == "P" &&
@@ -289,13 +289,13 @@ function display(ordinal, y) {
       if (admMain == "") {
         return `ψ(${display(getPpArgument(ordinal))})`;
       }
-      if (l == ONE) {
+      if (admSub == ONE) {
         return admMain.replace("x", "0");
       }
       if (admMain.includes("x")) {
-        return admMain.replace("x", display(l));
+        return admMain.replace("x", display(admSub));
       }
-      return `${admMain}<sub>${display(l)}</sub>`;
+      return `${admMain}<sub>${display(admSub)}</sub>`;
     }
     return `ψ(${display(getPpArgument(ordinal))})`;
   }
