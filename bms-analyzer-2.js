@@ -1,3 +1,5 @@
+const OMEGA = "p(p(0))";
+
 function eq(a, b) {
   if (typeof a == "number") {
     return a == b;
@@ -172,14 +174,14 @@ function split(a, x) {
 
 function hasRest(x) {
   // "does it need parentheses when you write something*x"
-  if (lt(x, "p(p(0))")) {
+  if (lt(x, OMEGA)) {
     return false;
   }
   let pAboveT = x[0] == "p" ? `p(${splitT(getPpArgument(x))[0]})` : "P(0)";
   let logord = null;
   let ordNoMul = null;
   if (pAboveT == "p(0)") {
-    pAboveT = "p(p(0))";
+    pAboveT = OMEGA;
     logord = log(x);
     ordNoMul = exp(logord);
   } else {
@@ -211,7 +213,8 @@ function display(ordinal, y) {
 
   // if is not Ω
   if (psiT == "p(0)") {
-    psiT = "p(p(0))";
+    // ω
+    psiT = OMEGA;
     logOrdinal = log(ordinal);
     ordinalFirstTerm = splitTermTo1stAndRest(ordinal)[0];
   } else {
@@ -228,10 +231,10 @@ function display(ordinal, y) {
   //console.log(f,g,h,'',c,d);
   if (c == "p(0)" && addition == "0") {
     if (exp(ordinal) != ordinal) {
-      if (ordinal == "p(p(0))") {
+      if (ordinal == OMEGA) {
         return "ω";
       }
-      if (lt(ordinal, "p(P(0))")) {
+      if (lt(ordinal, OMEGA)) {
         return `ω<sup>${display(log(ordinal))}</sup>`;
       }
       return `${display(psiT)}<sup>${display(logOrdinal)}</sup>`;
@@ -396,7 +399,7 @@ function mv(M, n, k) {
   } else {
     p = M[CR(M, X.at(-1)).at(-1)][2];
   }
-  if (lt(splitT(S)[1], "p(p(0))") && p && !k) {
+  if (lt(splitT(S)[1], OMEGA) && p && !k) {
     S = add(S, "p(0)");
   } // 111 211 311 = ψ(T^2·ω), not ψ(T^2)
   // also, if k!=0, the condition will never be activated, since then it's a fixed point.
