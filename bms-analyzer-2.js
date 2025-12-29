@@ -292,19 +292,19 @@ function display(ordinal, y) {
     }
     return `ψ(${display(getPpArgument(ordinal))})`;
   }
-  let a = display(ordinalFirstTerm);
+  let finRes = display(ordinalFirstTerm);
   //console.log(f,h,c,d)
   if (ordinalMul != ONE) {
     if (!hasRest(ordinalMul)) {
-      a += display(ordinalMul);
+      finRes += display(ordinalMul);
     } else {
-      a += `&sdot;(${display(ordinalMul)})`;
+      finRes += `&sdot;(${display(ordinalMul)})`;
     }
   }
   if (addition != "0") {
-    a += "+" + display(addition);
+    finRes += "+" + display(addition);
   }
-  return a;
+  return finRes;
 }
 
 // END COCF
