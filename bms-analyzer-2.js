@@ -234,7 +234,7 @@ function display(ordinal, y) {
       if (ordinal == OMEGA) {
         return "ω";
       }
-      if (lt(ordinal, OMEGA)) {
+      if (lt(ordinal, "p(P(0))")) {
         return `ω<sup>${display(log(ordinal))}</sup>`;
       }
       return `${display(psiT)}<sup>${display(logOrdinal)}</sup>`;
