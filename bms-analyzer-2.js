@@ -198,7 +198,7 @@ function hasRest(x) {
   return false;
 } // I could make it do up to K if I wanted, but I'm running low on time... since tomorrow I'm going to Korea (19 Dec 2025)
 // also does not handle I(ψ(T^M),1) because it's too complicated
-function display(ordinal, y) {
+function display2(ordinal, y) {
   //if(!y){return 'X'}
   //console.log(x);
   if (ordinal == "0") {
@@ -236,9 +236,9 @@ function display(ordinal, y) {
         return "ω";
       }
       if (lt(ordinal, OMEGA1)) {
-        return `ω<sup>${display(log(ordinal))}</sup>`;
+        return `ω<sup>${display2(log(ordinal))}</sup>`;
       }
-      return `${display(psiT)}<sup>${display(logOrdinal)}</sup>`;
+      return `${display2(psiT)}<sup>${display2(logOrdinal)}</sup>`;
     }
     if (ordinal == T) {
       return "T";
@@ -286,39 +286,42 @@ function display(ordinal, y) {
       } else if (argTExponent == "p(0)+p(0)") {
         admMain = "I";
       } else if (lt(argTExponent, "p(P(P(p(P(P(P(0)))))))")) {
-        admMain = `I(${display(sub(argTExponent, "p(0)+p(0)"))},x)`;
+        admMain = `I(${display2(sub(argTExponent, "p(0)+p(0)"))},x)`;
       } else if (argTExponent == T) {
         admMain = "M";
       }
       if (admMain == "") {
-        return `ψ(${display(getPpArgument(ordinal))})`;
+        return `ψ(${display2(getPpArgument(ordinal))})`;
       }
       if (admSub == ONE) {
         return admMain.replace("x", "0");
       }
       if (admMain.includes("x")) {
-        return admMain.replace("x", display(admSub));
+        return admMain.replace("x", display2(admSub));
       }
-      return `${admMain}<sub>${display(admSub)}</sub>`;
+      return `${admMain}<sub>${display2(admSub)}</sub>`;
     }
     //这里ψ(T+Ω_2)可以简写成ψ_(Ω_{Tmul + 1}) * 2
-    return `ψ(${display(getPpArgument(ordinal))})`;
+    return `ψ(${display2(getPpArgument(ordinal))})`;
   }
-  let finRes = display(ordinalFirstTerm);
+  let finRes = display2(ordinalFirstTerm);
   //console.log(f,h,c,d)
   if (ordinalMul != ONE) {
     if (!hasRest(ordinalMul)) {
-      finRes += display(ordinalMul);
+      finRes += display2(ordinalMul);
     } else {
-      finRes += `&sdot;(${display(ordinalMul)})`;
+      finRes += `&sdot;(${display2(ordinalMul)})`;
     }
   }
   if (addition != "0") {
-    finRes += "+" + display(addition);
+    finRes += "+" + display2(addition);
   }
   return finRes;
 }
-
+function display(x) {
+  let q = display2(x);
+  return q;
+}
 // END COCF
 
 function P(M, r, n) {
@@ -575,7 +578,7 @@ function calculate() {
     document.getElementById("output2").innerHTML = Q;
     return;
   }
-  document.getElementById("output").innerHTML = display(_o(M));
+  document.getElementById("output").innerHTML = display2(_o(M));
   let Q =
     '<tr><th class="border">i</th><th class="border" colspan=3>M<sub>i</sub></th><th class="border">calcMatrix(M,i)</th><th class="border">admissible(M,i)</th><th class="border">upgrade(M,i)</th><th class="border">Children</th>';
   let u = [...Array(M.length).keys()].map((x) => upgrade(M, x)[1]);
@@ -608,8 +611,8 @@ function calculate() {
       "(" + M[i][0] + ",",
       M[i][1] + ",",
       M[i][2] + ")",
-      display(calcMatrix(M, i)),
-      display(admissible(M, i)),
+      display2(calcMatrix(M, i)),
+      display2(admissible(M, i)),
       upgrade(M, i)[0]
         ? upgrade(M, i)[1].toString() + "*".repeat(upgrade(M, i)[0] - 1)
         : "",
