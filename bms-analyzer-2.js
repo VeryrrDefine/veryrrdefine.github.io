@@ -253,16 +253,16 @@ function display(ordinal, y) {
     let lastTpowX = exp(mul(T, argTExponent));
     lastTpowX = div(getPpArgument(ordinal), lastTpowX);
     //console.log(arg(x),k,m)
-    lastTpowX = splitT(lastTpowX);
+    let lastTpowXsplited = splitT(lastTpowX);
     let t = exp(add(mul(T, argTExponent), T));
     let l = null;
-    if (lastTpowX[0] == "0") {
+    if (lastTpowXsplited[0] == "0") {
       l = "0";
     } else {
-      l = "p(" + mul(lastTpowX, lastTpowX[0]) + ")";
+      l = "p(" + mul(lastTpowX, lastTpowXsplited[0]) + ")";
     }
-    let r = "p(" + mul(lastTpowX, add(lastTpowX[0], T)) + ")";
-    let [a, b] = split(lastTpowX[1], r);
+    let r = "p(" + mul(lastTpowX, add(lastTpowXsplited[0], T)) + ")";
+    let [a, b] = split(lastTpowXsplited[1], r);
     a = "p(" + mul(lastTpowX, a) + ")";
     //console.log(k,r,l,a,b)
     if (a == ONE) {
