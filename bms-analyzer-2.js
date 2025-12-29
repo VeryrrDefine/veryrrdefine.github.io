@@ -303,7 +303,7 @@ function display2(ordinal, y) {
         admMain = "M";
       }
       if (admMain == "") {
-        return `ψ(${display2(getPpArgument(ordinal))})`;
+        return displayPsi(getPpArgument(ordinal));
       }
       if (admSub == ONE) {
         return admMain.replace("x", "0");
