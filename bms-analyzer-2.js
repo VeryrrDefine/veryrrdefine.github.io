@@ -42,7 +42,7 @@ function terms(x) {
   return [firstTerm(x)[0]].concat(terms(firstTerm(x)[1]));
 }
 
-function arg(x) {
+function getPpArgument(x) {
   console.log();
   return firstTerm(x)[0].slice(2, -1);
 }
@@ -61,8 +61,8 @@ function lt(x, y) {
   if (x[0] == "P" && y[0] == "p") {
     return false;
   }
-  if (arg(x) != arg(y)) {
-    return lt(arg(x), arg(y));
+  if (getPpArgument(x) != getPpArgument(y)) {
+    return lt(getPpArgument(x), getPpArgument(y));
   }
   return lt(firstTerm(x)[1], firstTerm(y)[1]);
 }
@@ -109,7 +109,7 @@ function exp(a) {
   if (lt(a, "p(p(P(0)))")) {
     return `p(${a})`;
   }
-  let [x, y] = splitT(arg(a));
+  let [x, y] = splitT(getPpArgument(a));
   let p = split(y, `p(${add(x, "P(0)")})`)[0];
   return "p(" + add(x, add(p, sub(a, "p(" + add(x, p) + ")"))) + ")";
 }
@@ -119,9 +119,9 @@ function log(a) {
     return "0";
   }
   if (a[0] == "P") {
-    return add("P(0)", arg(a));
+    return add("P(0)", getPpArgument(a));
   }
-  let [x, y] = splitT(arg(a));
+  let [x, y] = splitT(getPpArgument(a));
   let [p, q] = split(y, `p(${add(x, "P(0)")})`);
   if (x == "0" && p == "0") {
     return q;
@@ -173,7 +173,7 @@ function op(x) {
   if (lt(x, "p(p(0))")) {
     return false;
   }
-  let f = x[0] == "p" ? `p(${splitT(arg(x))[0]})` : "P(0)";
+  let f = x[0] == "p" ? `p(${splitT(getPpArgument(x))[0]})` : "P(0)";
   let g = null;
   let h = null;
   if (f == "p(0)") {
@@ -201,7 +201,8 @@ function display(ordinal, y) {
   if (/^(p\(0\)\+)*p\(0\)$/.test(ordinal)) {
     return ((ordinal.length + 1) / 5).toString();
   }
-  let f = ordinal[0] == "p" ? `p(${splitT(arg(ordinal))[0]})` : "P(0)";
+  let f =
+    ordinal[0] == "p" ? `p(${splitT(getPpArgument(ordinal))[0]})` : "P(0)";
   let g = null;
   let h = null;
   if (f == "p(0)") {
@@ -210,7 +211,7 @@ function display(ordinal, y) {
     h = firstTerm(ordinal)[0];
   } else {
     g = div(log(ordinal), f);
-    h = `${f == "P(0)" ? "P" : "p"}(${split(arg(ordinal), f)[0]})`;
+    h = `${f == "P(0)" ? "P" : "p"}(${split(getPpArgument(ordinal), f)[0]})`;
   }
   let c = div(ordinal, h);
   let addition = sub(ordinal, mul(h, div(ordinal, h)));
@@ -228,9 +229,11 @@ function display(ordinal, y) {
     if (ordinal == "P(0)") {
       return "T";
     }
-    let m = div(log(lastTerm(arg(ordinal))[1]), "P(0)");
-    let k = exp(mul("P(0)", div(log(lastTerm(arg(ordinal))[1]), "P(0)")));
-    k = div(arg(ordinal), k);
+    let m = div(log(lastTerm(getPpArgument(ordinal))[1]), "P(0)");
+    let k = exp(
+      mul("P(0)", div(log(lastTerm(getPpArgument(ordinal))[1]), "P(0)"))
+    );
+    k = div(getPpArgument(ordinal), k);
     //console.log(arg(x),k,m)
     k = splitT(k);
     t = exp(add(mul("P(0)", m), "P(0)"));
@@ -249,7 +252,7 @@ function display(ordinal, y) {
     }
     l = add(l, add(a, b));
     let s = "";
-    if (lastTerm(arg(ordinal))[1][0] == "P" && b != "0") {
+    if (lastTerm(getPpArgument(ordinal))[1][0] == "P" && b != "0") {
       if (m == "p(0)") {
         s = "Ω";
       } else if (m == "p(0)+p(0)") {
@@ -260,7 +263,7 @@ function display(ordinal, y) {
         s = "M";
       }
       if (s == "") {
-        return `ψ(${display(arg(ordinal))})`;
+        return `ψ(${display(getPpArgument(ordinal))})`;
       }
       if (l == "p(0)") {
         return s.replace("x", "0");
@@ -270,7 +273,7 @@ function display(ordinal, y) {
       }
       return `${s}<sub>${display(l)}</sub>`;
     }
-    return `ψ(${display(arg(ordinal))})`;
+    return `ψ(${display(getPpArgument(ordinal))})`;
   }
   let a = display(h);
   //console.log(f,h,c,d)
