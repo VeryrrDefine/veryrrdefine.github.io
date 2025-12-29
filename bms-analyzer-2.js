@@ -224,13 +224,13 @@ function display(ordinal, y) {
       split(getPpArgument(ordinal), psiT)[0]
     })`;
   }
-  let c = div(ordinal, ordinalFirstTerm);
+  let ordinalMul = div(ordinal, ordinalFirstTerm);
   let addition = sub(
     ordinal,
     mul(ordinalFirstTerm, div(ordinal, ordinalFirstTerm))
   );
   //console.log(f,g,h,'',c,d);
-  if (c == ONE && addition == "0") {
+  if (ordinalMul == ONE && addition == "0") {
     if (exp(ordinal) != ordinal) {
       if (ordinal == OMEGA) {
         return "ω";
@@ -248,7 +248,7 @@ function display(ordinal, y) {
     k = div(getPpArgument(ordinal), k);
     //console.log(arg(x),k,m)
     k = splitT(k);
-    t = exp(add(mul(T, m), T));
+    let t = exp(add(mul(T, m), T));
     let l = null;
     if (k[0] == "0") {
       l = "0";
@@ -289,11 +289,11 @@ function display(ordinal, y) {
   }
   let a = display(ordinalFirstTerm);
   //console.log(f,h,c,d)
-  if (c != ONE) {
-    if (!hasRest(c)) {
-      a += display(c);
+  if (ordinalMul != ONE) {
+    if (!hasRest(ordinalMul)) {
+      a += display(ordinalMul);
     } else {
-      a += `&sdot;(${display(c)})`;
+      a += `&sdot;(${display(ordinalMul)})`;
     }
   }
   if (addition != "0") {
