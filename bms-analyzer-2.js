@@ -32,7 +32,7 @@ function splitTermTo1stAndRest(x) {
   return [x.slice(0, m + 1), x.slice(m + 2) || "0"];
 }
 
-function lastTerm(x) {
+function splitTermToLastAndPrevious(x) {
   console.log();
   let m = paren(x, x.length - 1);
   return [x.slice(0, m - 2) || "0", x.slice(m - 1)];
@@ -243,8 +243,10 @@ function display(ordinal, y) {
     if (ordinal == T) {
       return "T";
     }
-    let m = div(log(lastTerm(getPpArgument(ordinal))[1]), T);
-    let k = exp(mul(T, div(log(lastTerm(getPpArgument(ordinal))[1]), T)));
+    let m = div(log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]), T);
+    let k = exp(
+      mul(T, div(log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]), T))
+    );
     k = div(getPpArgument(ordinal), k);
     //console.log(arg(x),k,m)
     k = splitT(k);
@@ -264,7 +266,10 @@ function display(ordinal, y) {
     }
     l = add(l, add(a, b));
     let s = "";
-    if (lastTerm(getPpArgument(ordinal))[1][0] == "P" && b != "0") {
+    if (
+      splitTermToLastAndPrevious(getPpArgument(ordinal))[1][0] == "P" &&
+      b != "0"
+    ) {
       if (m == ONE) {
         s = "Ω";
       } else if (m == "p(0)+p(0)") {
