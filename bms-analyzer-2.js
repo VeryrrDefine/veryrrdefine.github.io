@@ -277,6 +277,7 @@ function display(ordinal, y) {
     console.log("admSub2", admSub);
     let admMain = "";
     if (
+      // 这里不知道，可能和ψ(T+Ω_2)有关
       splitTermToLastAndPrevious(getPpArgument(ordinal))[1][0] == "P" &&
       b != "0"
     ) {
