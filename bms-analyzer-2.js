@@ -259,11 +259,11 @@ function display(ordinal, y) {
     if (lastTpowX[0] == "0") {
       l = "0";
     } else {
-      l = "p(" + mul(exp(mul(T, argTExponent)), lastTpowX[0]) + ")";
+      l = "p(" + mul(lastTpowX, lastTpowX[0]) + ")";
     }
-    let r = "p(" + mul(exp(mul(T, argTExponent)), add(lastTpowX[0], T)) + ")";
+    let r = "p(" + mul(lastTpowX, add(lastTpowX[0], T)) + ")";
     let [a, b] = split(lastTpowX[1], r);
-    a = "p(" + mul(exp(mul(T, argTExponent)), a) + ")";
+    a = "p(" + mul(lastTpowX, a) + ")";
     //console.log(k,r,l,a,b)
     if (a == ONE) {
       a = "0";
