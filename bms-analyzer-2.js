@@ -272,30 +272,30 @@ function display(ordinal, y) {
       a = "0";
     }
     l = add(l, add(a, b));
-    let s = "";
+    let admMain = "";
     if (
       splitTermToLastAndPrevious(getPpArgument(ordinal))[1][0] == "P" &&
       b != "0"
     ) {
       if (argTExponent == ONE) {
-        s = "Ω";
+        admMain = "Ω";
       } else if (argTExponent == "p(0)+p(0)") {
-        s = "I";
+        admMain = "I";
       } else if (lt(argTExponent, "p(P(P(p(P(P(P(0)))))))")) {
-        s = `I(${display(sub(argTExponent, "p(0)+p(0)"))},x)`;
+        admMain = `I(${display(sub(argTExponent, "p(0)+p(0)"))},x)`;
       } else if (argTExponent == T) {
-        s = "M";
+        admMain = "M";
       }
-      if (s == "") {
+      if (admMain == "") {
         return `ψ(${display(getPpArgument(ordinal))})`;
       }
       if (l == ONE) {
-        return s.replace("x", "0");
+        return admMain.replace("x", "0");
       }
-      if (s.includes("x")) {
-        return s.replace("x", display(l));
+      if (admMain.includes("x")) {
+        return admMain.replace("x", display(l));
       }
-      return `${s}<sub>${display(l)}</sub>`;
+      return `${admMain}<sub>${display(l)}</sub>`;
     }
     return `ψ(${display(getPpArgument(ordinal))})`;
   }
