@@ -98,7 +98,7 @@ function sub(x, y) {
   return sub(firstTerm(x)[1], firstTerm(y)[1]);
 }
 
-function sua(x) {
+function splitT(x) {
   return split(x, "P(0)");
 }
 
@@ -109,7 +109,7 @@ function exp(a) {
   if (lt(a, "p(p(P(0)))")) {
     return `p(${a})`;
   }
-  let [x, y] = sua(arg(a));
+  let [x, y] = splitT(arg(a));
   let p = split(y, `p(${add(x, "P(0)")})`)[0];
   return "p(" + add(x, add(p, sub(a, "p(" + add(x, p) + ")"))) + ")";
 }
@@ -121,7 +121,7 @@ function log(a) {
   if (a[0] == "P") {
     return add("P(0)", arg(a));
   }
-  let [x, y] = sua(arg(a));
+  let [x, y] = splitT(arg(a));
   let [p, q] = split(y, `p(${add(x, "P(0)")})`);
   if (x == "0" && p == "0") {
     return q;
@@ -167,7 +167,7 @@ function op(x) {
   if (lt(x, "p(p(0))")) {
     return false;
   }
-  let f = x[0] == "p" ? `p(${sua(arg(x))[0]})` : "P(0)";
+  let f = x[0] == "p" ? `p(${splitT(arg(x))[0]})` : "P(0)";
   let g = null;
   let h = null;
   if (f == "p(0)") {
@@ -186,47 +186,47 @@ function op(x) {
   return false;
 } // I could make it do up to K if I wanted, but I'm running low on time... since tomorrow I'm going to Korea (19 Dec 2025)
 // also does not handle I(ψ(T^M),1) because it's too complicated
-function display(x, y) {
+function display(ordinal, y) {
   //if(!y){return 'X'}
   //console.log(x);
-  if (x == "0") {
+  if (ordinal == "0") {
     return "0";
   }
-  if (/^(p\(0\)\+)*p\(0\)$/.test(x)) {
-    return ((x.length + 1) / 5).toString();
+  if (/^(p\(0\)\+)*p\(0\)$/.test(ordinal)) {
+    return ((ordinal.length + 1) / 5).toString();
   }
-  let f = x[0] == "p" ? `p(${sua(arg(x))[0]})` : "P(0)";
+  let f = ordinal[0] == "p" ? `p(${splitT(arg(ordinal))[0]})` : "P(0)";
   let g = null;
   let h = null;
   if (f == "p(0)") {
     f = "p(p(0))";
-    g = log(x);
-    h = firstTerm(x)[0];
+    g = log(ordinal);
+    h = firstTerm(ordinal)[0];
   } else {
-    g = div(log(x), f);
-    h = `${f == "P(0)" ? "P" : "p"}(${split(arg(x), f)[0]})`;
+    g = div(log(ordinal), f);
+    h = `${f == "P(0)" ? "P" : "p"}(${split(arg(ordinal), f)[0]})`;
   }
-  let c = div(x, h);
-  let d = sub(x, mul(h, div(x, h)));
+  let c = div(ordinal, h);
+  let d = sub(ordinal, mul(h, div(ordinal, h)));
   //console.log(f,g,h,'',c,d);
   if (c == "p(0)" && d == "0") {
-    if (exp(x) != x) {
-      if (x == "p(p(0))") {
+    if (exp(ordinal) != ordinal) {
+      if (ordinal == "p(p(0))") {
         return "ω";
       }
-      if (lt(x, "p(P(0))")) {
-        return `ω<sup>${display(log(x))}</sup>`;
+      if (lt(ordinal, "p(P(0))")) {
+        return `ω<sup>${display(log(ordinal))}</sup>`;
       }
       return `${display(f)}<sup>${display(g)}</sup>`;
     }
-    if (x == "P(0)") {
+    if (ordinal == "P(0)") {
       return "T";
     }
-    let m = div(log(lastTerm(arg(x))[1]), "P(0)");
-    let k = exp(mul("P(0)", div(log(lastTerm(arg(x))[1]), "P(0)")));
-    k = div(arg(x), k);
+    let m = div(log(lastTerm(arg(ordinal))[1]), "P(0)");
+    let k = exp(mul("P(0)", div(log(lastTerm(arg(ordinal))[1]), "P(0)")));
+    k = div(arg(ordinal), k);
     //console.log(arg(x),k,m)
-    k = sua(k);
+    k = splitT(k);
     t = exp(add(mul("P(0)", m), "P(0)"));
     let l = null;
     if (k[0] == "0") {
@@ -243,7 +243,7 @@ function display(x, y) {
     }
     l = add(l, add(a, b));
     let s = "";
-    if (lastTerm(arg(x))[1][0] == "P" && b != "0") {
+    if (lastTerm(arg(ordinal))[1][0] == "P" && b != "0") {
       if (m == "p(0)") {
         s = "Ω";
       } else if (m == "p(0)+p(0)") {
@@ -254,7 +254,7 @@ function display(x, y) {
         s = "M";
       }
       if (s == "") {
-        return `ψ(${display(arg(x))})`;
+        return `ψ(${display(arg(ordinal))})`;
       }
       if (l == "p(0)") {
         return s.replace("x", "0");
@@ -264,7 +264,7 @@ function display(x, y) {
       }
       return `${s}<sub>${display(l)}</sub>`;
     }
-    return `ψ(${display(arg(x))})`;
+    return `ψ(${display(arg(ordinal))})`;
   }
   let a = display(h);
   //console.log(f,h,c,d)
@@ -377,7 +377,7 @@ function mv(M, n, k) {
   } else {
     p = M[CR(M, X.at(-1)).at(-1)][2];
   }
-  if (lt(sua(S)[1], "p(p(0))") && p && !k) {
+  if (lt(splitT(S)[1], "p(p(0))") && p && !k) {
     S = add(S, "p(0)");
   } // 111 211 311 = ψ(T^2·ω), not ψ(T^2)
   // also, if k!=0, the condition will never be activated, since then it's a fixed point.
