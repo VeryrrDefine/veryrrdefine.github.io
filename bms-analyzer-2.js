@@ -243,23 +243,28 @@ function display(ordinal, y) {
     if (ordinal == T) {
       return "T";
     }
-    let m = div(log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]), T);
+    //获取p内最后一项的ω指数除以T
+    //得到x p(ω^(Tx))，相当于p(T^x)
+    let argTExponent = div(
+      log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]),
+      T
+    );
     let k = exp(
       mul(T, div(log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]), T))
     );
     k = div(getPpArgument(ordinal), k);
     //console.log(arg(x),k,m)
     k = splitT(k);
-    let t = exp(add(mul(T, m), T));
+    let t = exp(add(mul(T, argTExponent), T));
     let l = null;
     if (k[0] == "0") {
       l = "0";
     } else {
-      l = "p(" + mul(exp(mul(T, m)), k[0]) + ")";
+      l = "p(" + mul(exp(mul(T, argTExponent)), k[0]) + ")";
     }
-    let r = "p(" + mul(exp(mul(T, m)), add(k[0], T)) + ")";
+    let r = "p(" + mul(exp(mul(T, argTExponent)), add(k[0], T)) + ")";
     let [a, b] = split(k[1], r);
-    a = "p(" + mul(exp(mul(T, m)), a) + ")";
+    a = "p(" + mul(exp(mul(T, argTExponent)), a) + ")";
     //console.log(k,r,l,a,b)
     if (a == ONE) {
       a = "0";
@@ -270,13 +275,13 @@ function display(ordinal, y) {
       splitTermToLastAndPrevious(getPpArgument(ordinal))[1][0] == "P" &&
       b != "0"
     ) {
-      if (m == ONE) {
+      if (argTExponent == ONE) {
         s = "Ω";
-      } else if (m == "p(0)+p(0)") {
+      } else if (argTExponent == "p(0)+p(0)") {
         s = "I";
-      } else if (lt(m, "p(P(P(p(P(P(P(0)))))))")) {
-        s = `I(${display(sub(m, "p(0)+p(0)"))},x)`;
-      } else if (m == T) {
+      } else if (lt(argTExponent, "p(P(P(p(P(P(P(0)))))))")) {
+        s = `I(${display(sub(argTExponent, "p(0)+p(0)"))},x)`;
+      } else if (argTExponent == T) {
         s = "M";
       }
       if (s == "") {
