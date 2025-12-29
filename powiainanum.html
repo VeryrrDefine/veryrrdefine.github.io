@@ -1,1 +1,115 @@
-<script src="https://unpkg.com/powiaina_num.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/powiaina_num.js"></script>
+
+    <script>
+        function omegalog2(target, bbase = 10) {
+            let dis = target.clone()
+            if (dis.isInfiNaN()) return dis;
+            if (dis.gte("10{1,2}e15.954589770191003")) return dis;
+            let base = new P(bbase).clone()
+            if (dis.getOperator(1 / 0) >= 1) {
+                dis.setOperator(dis.getOperator(1 / 0) - 1, 1 / 0, 1, 1)
+                return dis
+            }
+            // if (dis.layer >= 1) {
+            // dis.layer -= 1
+            // return dis
+            // } else 
+
+            if (dis.arr01[dis.array.length - 1][0] >= 98) {
+                let zero = new P(dis.array[dis.arr01.length - 1][0])
+                return zero
+            } else if (target.lt(P.pentate(bbase, 2))) {
+                return new P(target).anyarrow_log(3)(bbase);
+            } else {
+                let addTest = 8
+                let target = 0
+                while (addTest >= 10 ** -10) {
+                    if (arrFrac(base, target + addTest).lte(dis)) {
+                        target += addTest
+                    }
+                    addTest /= 2
+                }
+                return new P(target)
+            }
+        }
+
+        function omegalog(target, bbase = 10) {
+            console.log(`Omegalog ${bbase.toString()}{${res = omegalog2(target, bbase)}}${bbase.toString()} = ${target.toString()}`);
+
+            return res;
+        }
+        const P = PowiainaNum.default;
+
+        function arrFrac(base, height) {
+            if (new P(height).lt(2)) return P.pentate(base, height);
+            const y1 = new P(height).floor().add(1)
+            const y2 = P.sub(height, y1).add(1)
+            return new P(base).arrow(y1)(y2.pow_base(base).div(y2.sub(1).pow_base(2)))
+        }
+
+        // function arrowpsdrevert(base, height, result) {
+        //     const x = new P(base);
+        //     const y = new P(height);
+        //     const z = new P(result);
+        //     const lg2 = new P(2).logBase(x)
+
+        //     return omegalog()
+
+
+        // }
+        function arrFracParaInv(x, y, res2) {
+            console.log(`${x.toString()}{${y.toString()}}${res = new P(x).pow(new P(res2).sub(y).add(1)).mul(new P(2).pow(new P(y).sub(res2)))} = ${x.toString()}{${res2}}${x.toString()}`)
+            return res;
+        }
+
+        function arrFracPara(x, y, z) {
+            const lg2 = new P(2).logBase(x)
+            return y.sub(1).add(z.logBase(x).sub(lg2).div(new P(1).sub(lg2)))
+        }
+        function arrowpsd(base, height, other) {
+            const x = new P(base);
+            const y = new P(height);
+            const z = new P(other);
+            if (z.gt(x)) {
+                let anylog2 = arrowpsdInv(x, y, z);
+                let bottom = arrowpsdInv(x, y, x);
+                let top = x.clone();
+
+                const handled = anylog2.div(bottom).logBase(top.div(bottom));
+                console.log("Handled:", handled.toString());
+
+                return arrowpsd(x, y.add(1), P.add(2, handled))
+            }
+            return arrFrac(x, arrFracPara(x, y, z));
+        }
+        function arrowpsdInv(base, height, res) {
+            const x = new P(base);
+            const y = new P(height);
+            const z = new P(res);
+            console.log(`arrowpsdInv ${x.toString()}{${y.toString()}}${res = arrFracParaInv(x, y, omegalog(z, x))} = ${z.toString()}`)
+            if (res.gt(x)) {
+                let add2handled = arrowpsdInv(x, y.add(1), z);
+                let handled = add2handled.sub(2);
+                let bottom = arrowpsdInv(x, y, x);
+                let top = x.clone();
+                const anylog2 = handled.pow_base(top.div(bottom)).mul(bottom);
+
+                return arrowpsd(x, y, anylog2);
+                throw new Error("Result is outsite value set.")
+            }
+            return res
+        }
+    </script>
+</body>
+
+</html>
