@@ -285,6 +285,7 @@ function display2(ordinal, y) {
     }
     //这里start
     const { b, argTExponent, admSub } = handle(ordinal);
+    console.table({ b, argTExponent, admSub });
     // 这里end
     let admMain = "";
     if (
@@ -313,8 +314,9 @@ function display2(ordinal, y) {
       return `${admMain}<sub>${display2(admSub)}</sub>`;
     }
     //这里ψ(T+Ω_2)可以简写成ψ_(Ω_{Tmul + 1}) * 2
-    return `ψ(${display2(getPpArgument(ordinal))})`;
+    return displayPsi(getPpArgument(ordinal));
   }
+
   let finRes = display2(ordinalFirstTerm);
   //console.log(f,h,c,d)
   if (ordinalMul != ONE) {
@@ -328,6 +330,11 @@ function display2(ordinal, y) {
     finRes += "+" + display2(addition);
   }
   return finRes;
+}
+function displayPsi(x) {
+  let a = display2(x);
+
+  return `ψ(${a})`;
 }
 function display(x) {
   let q = display2(x);
