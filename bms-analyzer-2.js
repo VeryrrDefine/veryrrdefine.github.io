@@ -253,16 +253,17 @@ function display(ordinal, y) {
     let lastTpowX = exp(mul(T, argTExponent));
     lastTpowX = div(getPpArgument(ordinal), lastTpowX);
     //console.log(arg(x),k,m)
-    let lastTpowXsplited = splitT(lastTpowX);
+    //T^x中的x分成T*x, y<T两部分
+    let lastTpowXsplitedT = splitT(lastTpowX);
     let t = exp(add(mul(T, argTExponent), T));
     let l = null;
-    if (lastTpowXsplited[0] == "0") {
+    if (lastTpowXsplitedT[0] == "0") {
       l = "0";
     } else {
-      l = "p(" + mul(lastTpowX, lastTpowXsplited[0]) + ")";
+      l = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
     }
-    let r = "p(" + mul(lastTpowX, add(lastTpowXsplited[0], T)) + ")";
-    let [a, b] = split(lastTpowXsplited[1], r);
+    let r = "p(" + mul(lastTpowX, add(lastTpowXsplitedT[0], T)) + ")";
+    let [a, b] = split(lastTpowXsplitedT[1], r);
     a = "p(" + mul(lastTpowX, a) + ")";
     //console.log(k,r,l,a,b)
     if (a == ONE) {
