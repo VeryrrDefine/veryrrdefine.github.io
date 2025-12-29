@@ -207,9 +207,9 @@ function display(ordinal, y) {
     h = `${f == "P(0)" ? "P" : "p"}(${split(arg(ordinal), f)[0]})`;
   }
   let c = div(ordinal, h);
-  let d = sub(ordinal, mul(h, div(ordinal, h)));
+  let addition = sub(ordinal, mul(h, div(ordinal, h)));
   //console.log(f,g,h,'',c,d);
-  if (c == "p(0)" && d == "0") {
+  if (c == "p(0)" && addition == "0") {
     if (exp(ordinal) != ordinal) {
       if (ordinal == "p(p(0))") {
         return "ω";
@@ -275,8 +275,8 @@ function display(ordinal, y) {
       a += `&sdot;(${display(c)})`;
     }
   }
-  if (d != "0") {
-    a += "+" + display(d);
+  if (addition != "0") {
+    a += "+" + display(addition);
   }
   return a;
 }
