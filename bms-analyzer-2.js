@@ -249,19 +249,20 @@ function display(ordinal, y) {
       log(splitTermToLastAndPrevious(getPpArgument(ordinal))[1]),
       T
     );
-    let k = exp(mul(T, argTExponent));
-    k = div(getPpArgument(ordinal), k);
+    //获取最后一项的T^x
+    let lastTpowX = exp(mul(T, argTExponent));
+    lastTpowX = div(getPpArgument(ordinal), lastTpowX);
     //console.log(arg(x),k,m)
-    k = splitT(k);
+    lastTpowX = splitT(lastTpowX);
     let t = exp(add(mul(T, argTExponent), T));
     let l = null;
-    if (k[0] == "0") {
+    if (lastTpowX[0] == "0") {
       l = "0";
     } else {
-      l = "p(" + mul(exp(mul(T, argTExponent)), k[0]) + ")";
+      l = "p(" + mul(exp(mul(T, argTExponent)), lastTpowX[0]) + ")";
     }
-    let r = "p(" + mul(exp(mul(T, argTExponent)), add(k[0], T)) + ")";
-    let [a, b] = split(k[1], r);
+    let r = "p(" + mul(exp(mul(T, argTExponent)), add(lastTpowX[0], T)) + ")";
+    let [a, b] = split(lastTpowX[1], r);
     a = "p(" + mul(exp(mul(T, argTExponent)), a) + ")";
     //console.log(k,r,l,a,b)
     if (a == ONE) {
