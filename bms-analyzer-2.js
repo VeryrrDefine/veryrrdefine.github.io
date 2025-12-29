@@ -203,20 +203,28 @@ function display(ordinal, y) {
   if (/^(p\(0\)\+)*p\(0\)$/.test(ordinal)) {
     return ((ordinal.length + 1) / 5).toString();
   }
-  let f =
+  let psiT =
     ordinal[0] == "p" ? `p(${splitT(getPpArgument(ordinal))[0]})` : "P(0)";
   let logOrdinal = null;
-  let h = null;
-  if (f == "p(0)") {
-    f = "p(p(0))";
+  let ordinalFirstTerm = null;
+  console.log(psiT);
+
+  // if is not Ω
+  if (psiT == "p(0)") {
+    psiT = "p(p(0))";
     logOrdinal = log(ordinal);
-    h = splitTermTo1stAndRest(ordinal)[0];
+    ordinalFirstTerm = splitTermTo1stAndRest(ordinal)[0];
   } else {
-    logOrdinal = div(log(ordinal), f);
-    h = `${f == "P(0)" ? "P" : "p"}(${split(getPpArgument(ordinal), f)[0]})`;
+    logOrdinal = div(log(ordinal), psiT);
+    ordinalFirstTerm = `${psiT == "P(0)" ? "P" : "p"}(${
+      split(getPpArgument(ordinal), psiT)[0]
+    })`;
   }
-  let c = div(ordinal, h);
-  let addition = sub(ordinal, mul(h, div(ordinal, h)));
+  let c = div(ordinal, ordinalFirstTerm);
+  let addition = sub(
+    ordinal,
+    mul(ordinalFirstTerm, div(ordinal, ordinalFirstTerm))
+  );
   //console.log(f,g,h,'',c,d);
   if (c == "p(0)" && addition == "0") {
     if (exp(ordinal) != ordinal) {
@@ -226,7 +234,7 @@ function display(ordinal, y) {
       if (lt(ordinal, "p(P(0))")) {
         return `ω<sup>${display(log(ordinal))}</sup>`;
       }
-      return `${display(f)}<sup>${display(logOrdinal)}</sup>`;
+      return `${display(psiT)}<sup>${display(logOrdinal)}</sup>`;
     }
     if (ordinal == "P(0)") {
       return "T";
@@ -277,7 +285,7 @@ function display(ordinal, y) {
     }
     return `ψ(${display(getPpArgument(ordinal))})`;
   }
-  let a = display(h);
+  let a = display(ordinalFirstTerm);
   //console.log(f,h,c,d)
   if (c != "p(0)") {
     if (!hasRest(c)) {
