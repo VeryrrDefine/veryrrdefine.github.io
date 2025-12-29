@@ -255,11 +255,11 @@ function display(ordinal, y) {
     //console.log(arg(x),k,m)
     //T^x中的x分成T*?=x, y<T两部分
     let lastTpowXsplitedT = splitT(lastTpowX);
-    let t = exp(add(mul(T, argTExponent), T));
     let l = null;
     if (lastTpowXsplitedT[0] == "0") {
       l = "0";
     } else {
+      // T^x乘以指数分出的T再套个p
       l = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
     }
     let r = "p(" + mul(lastTpowX, add(lastTpowXsplitedT[0], T)) + ")";
