@@ -168,25 +168,25 @@ function split(a, x) {
   ];
 }
 
-function op(x) {
+function hasRest(x) {
   // "does it need parentheses when you write something*x"
   if (lt(x, "p(p(0))")) {
     return false;
   }
-  let f = x[0] == "p" ? `p(${splitT(getPpArgument(x))[0]})` : "P(0)";
-  let g = null;
-  let h = null;
-  if (f == "p(0)") {
-    f = "p(p(0))";
-    g = log(x);
-    h = exp(g);
+  let pAboveT = x[0] == "p" ? `p(${splitT(getPpArgument(x))[0]})` : "P(0)";
+  let logord = null;
+  let ordNoMul = null;
+  if (pAboveT == "p(0)") {
+    pAboveT = "p(p(0))";
+    logord = log(x);
+    ordNoMul = exp(logord);
   } else {
-    g = div(log(x), f);
-    h = exp(mul(f, g));
+    logord = div(log(x), pAboveT);
+    ordNoMul = exp(mul(pAboveT, logord));
   }
-  let c = div(x, h);
-  let d = sub(x, mul(h, div(x, h)));
-  if (d != "0") {
+  let ordMulFactor = div(x, ordNoMul);
+  let rest = sub(x, mul(ordNoMul, ordMulFactor));
+  if (rest != "0") {
     return true;
   }
   return false;
@@ -278,7 +278,7 @@ function display(ordinal, y) {
   let a = display(h);
   //console.log(f,h,c,d)
   if (c != "p(0)") {
-    if (!op(c)) {
+    if (!hasRest(c)) {
       a += display(c);
     } else {
       a += `&sdot;(${display(c)})`;
