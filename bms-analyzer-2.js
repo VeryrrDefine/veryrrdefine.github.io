@@ -184,8 +184,11 @@ function op(x) {
     return true;
   }
   return false;
-}
-function display2(x, y) {
+} // I could make it do up to K if I wanted, but I'm running low on time... since tomorrow I'm going to Korea (19 Dec 2025)
+// also does not handle I(ψ(T^M),1) because it's too complicated
+function display(x, y) {
+  //if(!y){return 'X'}
+  //console.log(x);
   if (x == "0") {
     return "0";
   }
@@ -205,7 +208,6 @@ function display2(x, y) {
   }
   let c = div(x, h);
   let d = sub(x, mul(h, div(x, h)));
-  // if (y) return [display(f),display(g),display(h),display(c),display(d)]
   //console.log(f,g,h,'',c,d);
   if (c == "p(0)" && d == "0") {
     if (exp(x) != x) {
@@ -252,7 +254,7 @@ function display2(x, y) {
         s = "M";
       }
       if (s == "") {
-        return displayPsi(arg(x));
+        return `ψ(${display(arg(x))})`;
       }
       if (l == "p(0)") {
         return s.replace("x", "0");
@@ -262,66 +264,21 @@ function display2(x, y) {
       }
       return `${s}<sub>${display(l)}</sub>`;
     }
-    return displayPsi(arg(x));
+    return `ψ(${display(arg(x))})`;
   }
   let a = display(h);
-
-  return { c, a, d };
-}
-function displayPsi(x) {
-  let b = display2(x);
-  if (typeof b == "object") {
-    let { a, c, d } = b;
-
-    if (c != "p(0)") {
-      a += display(c);
-    }
-    let adm = "0";
-    if (a.startsWith("T")) {
-      adm = a;
-      a = "";
-    }
-    if (d != "0") {
-      if (a == "") a += display(d);
-      else a += `+` + display(d);
-    }
-    if (a == "") a = "0";
-
-    if (/T[^<]/.test(adm)) {
-      adm = adm.slice(1);
-      if (!adm) adm = "1";
-    }
-    if (a == 0) {
-      return `ψ[${adm}]`;
-    }
-    return `ψ<sub>${adm}</sub>(${a})`;
-  }
-  return `ψ(${b})`;
-}
-// I could make it do up to K if I wanted, but I'm running low on time... since tomorrow I'm going to Korea (19 Dec 2025)
-// also does not handle I(ψ(T^M),1) because it's too complicated
-function display(x, y) {
-  let q = display2(x);
-  if (typeof q == "object") {
-    let { a, c, d } = q;
-
-    if (c != "p(0)") {
-      if (!op(c)) {
-        a += display(c);
-      } else {
-        a += `&sdot;(${display(c)})`;
-      }
-    }
-    if (d != "0") {
-      a += "+" + display(d);
-    }
-    return a;
-  }
-  return q;
-  //if(!y){return 'X'}
-  //console.log(x);
-
   //console.log(f,h,c,d)
+  if (c != "p(0)") {
+    if (!op(c)) {
+      a += display(c);
+    } else {
+      a += `&sdot;(${display(c)})`;
+    }
+  }
+  if (d != "0") {
+    a += "+" + display(d);
+  }
+  return a;
 }
 
 // END COCF
