@@ -1,5 +1,7 @@
 const OMEGA = "p(p(0))";
-
+const OMEGA1 = "p(P(0))";
+const ONE = "p(0)";
+const T = "P(0)";
 function eq(a, b) {
   if (typeof a == "number") {
     return a == b;
@@ -103,18 +105,18 @@ function sub(x, y) {
 }
 
 function splitT(x) {
-  return split(x, "P(0)");
+  return split(x, T);
 }
 
 function exp(a) {
   if (a[0] == "P") {
-    return `P(${sub(a, "P(0)")})`;
+    return `P(${sub(a, T)})`;
   }
   if (lt(a, "p(p(P(0)))")) {
     return `p(${a})`;
   }
   let [x, y] = splitT(getPpArgument(a));
-  let p = split(y, `p(${add(x, "P(0)")})`)[0];
+  let p = split(y, `p(${add(x, T)})`)[0];
   return "p(" + add(x, add(p, sub(a, "p(" + add(x, p) + ")"))) + ")";
 }
 
@@ -123,10 +125,10 @@ function log(a) {
     return "0";
   }
   if (a[0] == "P") {
-    return add("P(0)", getPpArgument(a));
+    return add(T, getPpArgument(a));
   }
   let [x, y] = splitT(getPpArgument(a));
-  let [p, q] = split(y, `p(${add(x, "P(0)")})`);
+  let [p, q] = split(y, `p(${add(x, T)})`);
   if (x == "0" && p == "0") {
     return q;
   }
@@ -177,10 +179,10 @@ function hasRest(x) {
   if (lt(x, OMEGA)) {
     return false;
   }
-  let pAboveT = x[0] == "p" ? `p(${splitT(getPpArgument(x))[0]})` : "P(0)";
+  let pAboveT = x[0] == "p" ? `p(${splitT(getPpArgument(x))[0]})` : T;
   let logord = null;
   let ordNoMul = null;
-  if (pAboveT == "p(0)") {
+  if (pAboveT == ONE) {
     pAboveT = OMEGA;
     logord = log(x);
     ordNoMul = exp(logord);
@@ -205,21 +207,20 @@ function display(ordinal, y) {
   if (/^(p\(0\)\+)*p\(0\)$/.test(ordinal)) {
     return ((ordinal.length + 1) / 5).toString();
   }
-  let psiT =
-    ordinal[0] == "p" ? `p(${splitT(getPpArgument(ordinal))[0]})` : "P(0)";
+  let psiT = ordinal[0] == "p" ? `p(${splitT(getPpArgument(ordinal))[0]})` : T;
   let logOrdinal = null;
   let ordinalFirstTerm = null;
   console.log(psiT);
 
   // if is not Ω
-  if (psiT == "p(0)") {
+  if (psiT == ONE) {
     // ω
     psiT = OMEGA;
     logOrdinal = log(ordinal);
     ordinalFirstTerm = splitTermTo1stAndRest(ordinal)[0];
   } else {
     logOrdinal = div(log(ordinal), psiT);
-    ordinalFirstTerm = `${psiT == "P(0)" ? "P" : "p"}(${
+    ordinalFirstTerm = `${psiT == T ? "P" : "p"}(${
       split(getPpArgument(ordinal), psiT)[0]
     })`;
   }
@@ -229,56 +230,54 @@ function display(ordinal, y) {
     mul(ordinalFirstTerm, div(ordinal, ordinalFirstTerm))
   );
   //console.log(f,g,h,'',c,d);
-  if (c == "p(0)" && addition == "0") {
+  if (c == ONE && addition == "0") {
     if (exp(ordinal) != ordinal) {
       if (ordinal == OMEGA) {
         return "ω";
       }
-      if (lt(ordinal, "p(P(0))")) {
+      if (lt(ordinal, OMEGA1)) {
         return `ω<sup>${display(log(ordinal))}</sup>`;
       }
       return `${display(psiT)}<sup>${display(logOrdinal)}</sup>`;
     }
-    if (ordinal == "P(0)") {
+    if (ordinal == T) {
       return "T";
     }
-    let m = div(log(lastTerm(getPpArgument(ordinal))[1]), "P(0)");
-    let k = exp(
-      mul("P(0)", div(log(lastTerm(getPpArgument(ordinal))[1]), "P(0)"))
-    );
+    let m = div(log(lastTerm(getPpArgument(ordinal))[1]), T);
+    let k = exp(mul(T, div(log(lastTerm(getPpArgument(ordinal))[1]), T)));
     k = div(getPpArgument(ordinal), k);
     //console.log(arg(x),k,m)
     k = splitT(k);
-    t = exp(add(mul("P(0)", m), "P(0)"));
+    t = exp(add(mul(T, m), T));
     let l = null;
     if (k[0] == "0") {
       l = "0";
     } else {
-      l = "p(" + mul(exp(mul("P(0)", m)), k[0]) + ")";
+      l = "p(" + mul(exp(mul(T, m)), k[0]) + ")";
     }
-    let r = "p(" + mul(exp(mul("P(0)", m)), add(k[0], "P(0)")) + ")";
+    let r = "p(" + mul(exp(mul(T, m)), add(k[0], T)) + ")";
     let [a, b] = split(k[1], r);
-    a = "p(" + mul(exp(mul("P(0)", m)), a) + ")";
+    a = "p(" + mul(exp(mul(T, m)), a) + ")";
     //console.log(k,r,l,a,b)
-    if (a == "p(0)") {
+    if (a == ONE) {
       a = "0";
     }
     l = add(l, add(a, b));
     let s = "";
     if (lastTerm(getPpArgument(ordinal))[1][0] == "P" && b != "0") {
-      if (m == "p(0)") {
+      if (m == ONE) {
         s = "Ω";
       } else if (m == "p(0)+p(0)") {
         s = "I";
       } else if (lt(m, "p(P(P(p(P(P(P(0)))))))")) {
         s = `I(${display(sub(m, "p(0)+p(0)"))},x)`;
-      } else if (m == "P(0)") {
+      } else if (m == T) {
         s = "M";
       }
       if (s == "") {
         return `ψ(${display(getPpArgument(ordinal))})`;
       }
-      if (l == "p(0)") {
+      if (l == ONE) {
         return s.replace("x", "0");
       }
       if (s.includes("x")) {
@@ -290,7 +289,7 @@ function display(ordinal, y) {
   }
   let a = display(ordinalFirstTerm);
   //console.log(f,h,c,d)
-  if (c != "p(0)") {
+  if (c != ONE) {
     if (!hasRest(c)) {
       a += display(c);
     } else {
@@ -400,7 +399,7 @@ function mv(M, n, k) {
     p = M[CR(M, X.at(-1)).at(-1)][2];
   }
   if (lt(splitT(S)[1], OMEGA) && p && !k) {
-    S = add(S, "p(0)");
+    S = add(S, ONE);
   } // 111 211 311 = ψ(T^2·ω), not ψ(T^2)
   // also, if k!=0, the condition will never be activated, since then it's a fixed point.
   return exp(S);
@@ -409,7 +408,7 @@ function mv(M, n, k) {
 function ov(M, n, k) {
   // k = 3 (31) in 0 111 211 31 2 (-> T, since 31 is chain-upgraded)
   if (n == k) {
-    return "P(0)";
+    return T;
   }
   if (M[n][2] == 0) {
     return calcMatrix(M, n);
@@ -430,7 +429,7 @@ function admissible(M, n) {
   }
   if (M[n][2] == 0) {
     let u = upgrade(M, n);
-    u = u[0] ? mv(M, u[1], n * (u[0] == 2)) : "p(0)";
+    u = u[0] ? mv(M, u[1], n * (u[0] == 2)) : ONE;
     return add(admissible(M, P(M, 1, n)), u);
   }
   return add(admissible(M, P(M, 1, n)), mv(M, n, 0));
@@ -444,7 +443,7 @@ function calcMatrix(M, n) {
     }
     S = add(S, calcMatrix(M, i));
   }
-  return `p(${add(mul("P(0)", admissible(M, n)), S)})`;
+  return `p(${add(mul(T, admissible(M, n)), S)})`;
 }
 
 function skipped(M, n) {
