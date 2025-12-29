@@ -22,7 +22,7 @@ function paren(x, n) {
   return i;
 }
 
-function firstTerm(x) {
+function splitTermTo1stAndRest(x) {
   console.log();
   let m = paren(x, 1);
   return [x.slice(0, m + 1), x.slice(m + 2) || "0"];
@@ -39,12 +39,14 @@ function terms(x) {
   if (x == "0") {
     return [];
   }
-  return [firstTerm(x)[0]].concat(terms(firstTerm(x)[1]));
+  return [splitTermTo1stAndRest(x)[0]].concat(
+    terms(splitTermTo1stAndRest(x)[1])
+  );
 }
 
 function getPpArgument(x) {
   console.log();
-  return firstTerm(x)[0].slice(2, -1);
+  return splitTermTo1stAndRest(x)[0].slice(2, -1);
 }
 
 function lt(x, y) {
@@ -64,7 +66,7 @@ function lt(x, y) {
   if (getPpArgument(x) != getPpArgument(y)) {
     return lt(getPpArgument(x), getPpArgument(y));
   }
-  return lt(firstTerm(x)[1], firstTerm(y)[1]);
+  return lt(splitTermTo1stAndRest(x)[1], splitTermTo1stAndRest(y)[1]);
 }
 
 function add(x, y) {
@@ -74,11 +76,11 @@ function add(x, y) {
   if (y == "0") {
     return x;
   }
-  if (lt(firstTerm(x)[0], firstTerm(y)[0])) {
+  if (lt(splitTermTo1stAndRest(x)[0], splitTermTo1stAndRest(y)[0])) {
     return y;
   }
-  let z = firstTerm(x)[0];
-  let w = add(firstTerm(x)[1], y);
+  let z = splitTermTo1stAndRest(x)[0];
+  let w = add(splitTermTo1stAndRest(x)[1], y);
   if (w != "0") {
     return z + "+" + w;
   }
@@ -92,10 +94,10 @@ function sub(x, y) {
   if (y == "0") {
     return x;
   }
-  if (lt(firstTerm(y)[0], firstTerm(x)[0])) {
+  if (lt(splitTermTo1stAndRest(y)[0], splitTermTo1stAndRest(x)[0])) {
     return x;
   }
-  return sub(firstTerm(x)[1], firstTerm(y)[1]);
+  return sub(splitTermTo1stAndRest(x)[1], splitTermTo1stAndRest(y)[1]);
 }
 
 function splitT(x) {
@@ -135,7 +137,7 @@ function div(a, b) {
   if (lt(a, b)) {
     return "0";
   }
-  return add(exp(sub(log(a), log(b))), div(firstTerm(a)[1], b));
+  return add(exp(sub(log(a), log(b))), div(splitTermTo1stAndRest(a)[1], b));
 }
 
 function mul(a, b) {
@@ -143,7 +145,7 @@ function mul(a, b) {
   if (b == "0") {
     return "0";
   }
-  return add(exp(add(log(a), log(b))), mul(a, firstTerm(b)[1]));
+  return add(exp(add(log(a), log(b))), mul(a, splitTermTo1stAndRest(b)[1]));
 }
 
 /**
@@ -159,12 +161,12 @@ function split(a, x) {
   if (lt(a, x)) {
     return ["0", a];
   }
-  if (lt(firstTerm(a)[0], x)) {
+  if (lt(splitTermTo1stAndRest(a)[0], x)) {
     return ["0", a];
   }
   return [
-    add(firstTerm(a)[0], split(firstTerm(a)[1], x)[0]),
-    split(firstTerm(a)[1], x)[1],
+    add(splitTermTo1stAndRest(a)[0], split(splitTermTo1stAndRest(a)[1], x)[0]),
+    split(splitTermTo1stAndRest(a)[1], x)[1],
   ];
 }
 
@@ -203,14 +205,14 @@ function display(ordinal, y) {
   }
   let f =
     ordinal[0] == "p" ? `p(${splitT(getPpArgument(ordinal))[0]})` : "P(0)";
-  let g = null;
+  let logOrdinal = null;
   let h = null;
   if (f == "p(0)") {
     f = "p(p(0))";
-    g = log(ordinal);
-    h = firstTerm(ordinal)[0];
+    logOrdinal = log(ordinal);
+    h = splitTermTo1stAndRest(ordinal)[0];
   } else {
-    g = div(log(ordinal), f);
+    logOrdinal = div(log(ordinal), f);
     h = `${f == "P(0)" ? "P" : "p"}(${split(getPpArgument(ordinal), f)[0]})`;
   }
   let c = div(ordinal, h);
@@ -224,7 +226,7 @@ function display(ordinal, y) {
       if (lt(ordinal, "p(P(0))")) {
         return `ω<sup>${display(log(ordinal))}</sup>`;
       }
-      return `${display(f)}<sup>${display(g)}</sup>`;
+      return `${display(f)}<sup>${display(logOrdinal)}</sup>`;
     }
     if (ordinal == "P(0)") {
       return "T";
