@@ -368,7 +368,7 @@ function D(M, n) {
   return X;
 }
 
-function U(M, n) {
+function upgrade(M, n) {
   if (M[n][1] == 0 || M[n][2] == 1 || n + 1 == M.length) {
     return [0, null];
   }
@@ -433,7 +433,7 @@ function ov(M, n, k) {
     return "P(0)";
   }
   if (M[n][2] == 0) {
-    return o(M, n);
+    return calcMatrix(M, n);
   }
   let S = "0";
   for (let i of C(M, n)) {
@@ -445,33 +445,33 @@ function ov(M, n, k) {
   return `P(${S})`;
 }
 
-function v(M, n) {
+function admissible(M, n) {
   if (M[n][1] == 0) {
     return "0";
   }
   if (M[n][2] == 0) {
-    let u = U(M, n);
+    let u = upgrade(M, n);
     u = u[0] ? mv(M, u[1], n * (u[0] == 2)) : "p(0)";
-    return add(v(M, P(M, 1, n)), u);
+    return add(admissible(M, P(M, 1, n)), u);
   }
-  return add(v(M, P(M, 1, n)), mv(M, n, 0));
+  return add(admissible(M, P(M, 1, n)), mv(M, n, 0));
 }
 
-function o(M, n) {
+function calcMatrix(M, n) {
   let S = "0";
   for (let i of C(M, n)) {
     if (skipped(M, n).includes(i)) {
       continue;
     }
-    S = add(S, o(M, i));
+    S = add(S, calcMatrix(M, i));
   }
-  return `p(${add(mul("P(0)", v(M, n)), S)})`;
+  return `p(${add(mul("P(0)", admissible(M, n)), S)})`;
 }
 
 function skipped(M, n) {
   let S = [];
   let u = [...Array(M.length).keys()].map((x) =>
-    U(M, x)[0] == 1 ? U(M, x)[1] : null
+    upgrade(M, x)[0] == 1 ? upgrade(M, x)[1] : null
   );
   for (let i of C(M, n)) {
     if (M[i][2] && M[n][2]) {
@@ -492,8 +492,8 @@ function skipped(M, n) {
     }
     if (
       eq(M[i], [M[n][0] + 1, 0, 0]) &&
-      U(M, i - 1)[0] == 2 &&
-      U(M, i - 1)[1] == n &&
+      upgrade(M, i - 1)[0] == 2 &&
+      upgrade(M, i - 1)[1] == n &&
       !C(M, i).length
     ) {
       S.push(i);
@@ -508,7 +508,7 @@ function _o(M) {
   let S = "0";
   for (let i = 0; i < M.length; i++) {
     if (eq(M[i], [0, 0, 0])) {
-      S = add(S, o(M, i));
+      S = add(S, calcMatrix(M, i));
     }
   }
   return S;
@@ -553,7 +553,7 @@ function calculate() {
     document.getElementById("output").innerHTML = "Too complex";
     document.getElementById("output3").innerHTML = "";
     let Q =
-      '<tr><th class="border">i</th><th class="border" colspan=3>M<sub>i</sub></th><th class="border">o(M,i)</th><th class="border">v(M,i)</th><th class="border">U(M,i)</th><th class="border">Children</th>';
+      '<tr><th class="border">i</th><th class="border" colspan=3>M<sub>i</sub></th><th class="border">calcMatrix(M,i)</th><th class="border">admissible(M,i)</th><th class="border">upgrade(M,i)</th><th class="border">Children</th>';
     for (let i = 0; i < M.length; i++) {
       Q += "<tr>";
       let m = [
@@ -582,11 +582,11 @@ function calculate() {
   }
   document.getElementById("output").innerHTML = display(_o(M));
   let Q =
-    '<tr><th class="border">i</th><th class="border" colspan=3>M<sub>i</sub></th><th class="border">o(M,i)</th><th class="border">v(M,i)</th><th class="border">U(M,i)</th><th class="border">Children</th>';
-  let u = [...Array(M.length).keys()].map((x) => U(M, x)[1]);
+    '<tr><th class="border">i</th><th class="border" colspan=3>M<sub>i</sub></th><th class="border">calcMatrix(M,i)</th><th class="border">admissible(M,i)</th><th class="border">upgrade(M,i)</th><th class="border">Children</th>';
+  let u = [...Array(M.length).keys()].map((x) => upgrade(M, x)[1]);
   let u1 = [...Array(M.length).keys()]
     .filter((x) => x != null)
-    .map((x) => U(M, x)[1] * (-1) ** U(M, x)[0]);
+    .map((x) => upgrade(M, x)[1] * (-1) ** upgrade(M, x)[0]);
   let s = _skipped(M);
   for (let i = 0; i < M.length; i++) {
     Q += "\n";
@@ -613,9 +613,11 @@ function calculate() {
       "(" + M[i][0] + ",",
       M[i][1] + ",",
       M[i][2] + ")",
-      display(o(M, i)),
-      display(v(M, i)),
-      U(M, i)[0] ? U(M, i)[1].toString() + "*".repeat(U(M, i)[0] - 1) : "",
+      display(calcMatrix(M, i)),
+      display(admissible(M, i)),
+      upgrade(M, i)[0]
+        ? upgrade(M, i)[1].toString() + "*".repeat(upgrade(M, i)[0] - 1)
+        : "",
       C(M, i),
     ];
     for (let j = 0; j < m.length; j++) {
