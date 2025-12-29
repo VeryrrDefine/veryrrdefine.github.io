@@ -301,6 +301,7 @@ function display(ordinal, y) {
       }
       return `${admMain}<sub>${display(admSub)}</sub>`;
     }
+    //这里ψ(T+Ω_2)可以简写成ψ_(Ω_{Tmul + 1}) * 2
     return `ψ(${display(getPpArgument(ordinal))})`;
   }
   let finRes = display(ordinalFirstTerm);
