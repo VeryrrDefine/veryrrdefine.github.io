@@ -260,8 +260,10 @@ function display(ordinal, y) {
       l = "0";
     } else {
       // T^x乘以指数分出的T再套个p
+      // 相当于 p(T^x * Tx)
       l = "p(" + mul(lastTpowX, lastTpowXsplitedT[0]) + ")";
     }
+    console.log("l", l);
     let r = "p(" + mul(lastTpowX, add(lastTpowXsplitedT[0], T)) + ")";
     let [a, b] = split(lastTpowXsplitedT[1], r);
     a = "p(" + mul(lastTpowX, a) + ")";
