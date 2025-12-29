@@ -146,6 +146,12 @@ function mul(a, b) {
   return add(exp(add(log(a), log(b))), mul(a, firstTerm(b)[1]));
 }
 
+/**
+ * Split a to a1>=x, a2<x
+ * @param {*} a
+ * @param {*} x
+ * @returns
+ */
 function split(a, x) {
   if (a == "0") {
     return ["0", "0"];
