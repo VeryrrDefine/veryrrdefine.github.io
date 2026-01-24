@@ -42,7 +42,7 @@ input {
     display: none;
 }
 a:-webkit-any-link {
-    color: hsl(120, 100%, 25%);
+    color: hsl(120, 100%, 25%) !important;
 }
 .katex-display {margin: 10px;
 }
