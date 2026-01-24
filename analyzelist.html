@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeryrrDefine的主页</title>
+    <link href="./style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main">
+        <h1 class="center">扽西集</h1>
+
+        <div id="analyzelist">
+            Loading...
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            crossorigin="anonymous"></script>
+    </div>
+    <script>
+        const defaultMacros = {
+            "\\w": "\\omega",
+            "\\W": "\\Omega",
+            "\\m": "\\cdot"
+
+        }
+        fetch("analyze.tex").then((resp) => {
+            return resp.text()
+        }).then((text) => {
+            document.getElementById("analyzelist").innerHTML = text;
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '$$', right: '$$', display: true },
+                    { left: '$', right: '$', display: false },
+                    { left: '\\(', right: '\\)', display: false },
+                    { left: '\\[', right: '\\]', display: true }
+                ],
+                throwOnError: false,
+                macros: defaultMacros
+            });
+        })
+
+    </script>
+</body>
+
+</html>

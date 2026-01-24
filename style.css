@@ -31,11 +31,18 @@ input {
 }
 
 
-* {
+*:not(.katex):not(.katex *):not(.cm-content):not(.cm-content *):not(.cm-gutters):not(
+        .cm-gutters *
+       ) {
     font-family: JetBrainsMono;
     color: hsl(0, 0%, 100%);
     background: #000;
 }
+.katex-html {
+    display: none;
+}
 a:-webkit-any-link {
     color: hsl(120, 100%, 25%);
+}
+.katex-display {margin: 10px;
 }
