@@ -30,7 +30,7 @@
         fetch("analyze.tex").then((resp) => {
             return resp.text()
         }).then((text) => {
-            document.getElementById("analyzelist").innerHTML = text;
+            document.getElementById("analyzelist").innerHTML = text.replace(/omega/g, 'ω');
             renderMathInElement(document.body, {
                 delimiters: [
                     { left: '$$', right: '$$', display: true },

@@ -1,4 +1,0 @@
-$$
-\begin{matrix}
-\end{matrix}
-$$
