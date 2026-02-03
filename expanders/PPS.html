@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>序列展开工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+            /* 允许换行 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>PPS</h1>
+        <label for="sequence">请输入序列（用逗号分隔）：</label>
+        <input type="text" id="sequence" placeholder="例如：0,1,2,3,4">
+
+        <label for="times">展开次数：</label>
+        <input type="number" id="times" value="6" min="1">
+
+        <button onclick="expandSequence()">展开序列</button>
+
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        let a = localStorage.getItem("ppsexpander");
+        if (!a) {
+            document.getElementById('sequence').value = "0,1,0,0,4";
+        } else {
+            document.getElementById('sequence').value = a
+        }
+        setInterval(() => {
+            localStorage.setItem("ppsexpander", document.getElementById('sequence').value)
+        }, 500)
+        function expandSequence() {
+            const 序列 = document.getElementById('sequence').value.trim();
+            const 展开次数 = parseInt(document.getElementById('times').value, 10);
+
+            // 解析原序列
+            const 序列数组 = 序列 ? 序列.replace(/[^()0-9,]/g, "").split(',').map(Number) : [];
+            if (!序列数组.length) {
+                document.getElementById('output').textContent = "原序列为空";
+                return;
+            }
+
+            const 序列长度 = 序列数组.length;
+            const 末项 = 序列长度 > 0 ? 序列数组[序列长度 - 1] : null;
+
+            // 处理末项为0的情况
+            if (末项 === 0) {
+                const 好部 = 序列数组.slice(0, -1);
+                document.getElementById('output').textContent = "展开结果: " + 好部.join(', ');
+                return;
+            }
+
+            const 父项序号 = 末项;
+            let 坏根序号 = null;
+            let 坏根值 = null;
+            let 坏部 = [];
+            let 公差 = 0;
+            let 白根存在 = false;
+
+            // 计算坏根和坏部
+            if (父项序号 >= 1 && 父项序号 <= 序列长度) {
+                坏根序号 = 父项序号;
+                坏根值 = 序列数组[坏根序号 - 1];
+                坏部 = 序列数组.slice(坏根序号, 序列长度 - 1);
+                公差 = 序列长度 - 坏根序号;
+                白根存在 = 坏部.some(val => val === 坏根值);
+            } else {
+                公差 = 序列长度 - 父项序号;
+            }
+
+            const 好部 = 序列数组.slice(0, -1);
+
+            // 展开序列
+            let 结果 = 好部.slice();
+            for (let i = 1; i <= 展开次数; i++) {
+                if (白根存在) {
+                    结果.push(坏根值);
+                } else {
+                    结果.push(末项 - 1);
+                }
+
+                const 处理后的坏部 = 坏部.map(val => {
+                    if (val < 末项) {
+                        return val;
+                    } else {
+                        return val + 公差 * i;
+                    }
+                });
+                结果 = 结果.concat(处理后的坏部);
+            }
+
+            // 显示结果
+            document.getElementById('output').textContent = "" + 结果.join(',');
+        }
+    </script>
+</body>
+
+</html>
