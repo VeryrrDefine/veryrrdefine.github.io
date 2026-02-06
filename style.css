@@ -35,14 +35,18 @@ input {
         .cm-gutters *
        ) {
     font-family: JetBrainsMono;
-    color: hsl(0, 0%, 100%);
-    background: #000;
+    color: hsl(0, 0%, 77%);
+}
+body {
+    background-image: linear-gradient(to bottom , rgb(16, 16, 16), rgb(37, 37, 37)) !important;
+    min-height: 100vh;
+    
 }
 .katex-html {
     display: none;
 }
 a:-webkit-any-link {
-    color: hsl(120, 100%, 25%) !important;
+    color: hsl(120, 100%, 41%) !important;
 }
 .katex-display {margin: 10px;
 }
