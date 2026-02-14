@@ -2,7 +2,7 @@
 layout: post
 title: "BMS Analysis 1"
 date: 2026-02-14 13:51:25 +0800
-categories: jekyll update
+categories: googology analysis bms
 mathjax: true
 ---
 
