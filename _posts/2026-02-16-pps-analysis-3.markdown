@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "PPS Analysis 3"
-date: 2026-02-15 23:14:24 +0800
+date: 2026-02-16 09:54:22 +0800
 categories: googology analysis pps
 mathjax: true
 ---
