@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PPS Analysis 2"
+title: "PPS Analysis 2——0~SCO"
 date: 2026-02-15 21:57:25 +0800
 categories: googology analysis pps
 mathjax: true

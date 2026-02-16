@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PPS Analysis 3"
+title: "PPS Analysis 3——SCO~ε_(ω^(ω^(ε_0+1)+1))"
 date: 2026-02-16 09:54:22 +0800
 categories: googology analysis pps
 mathjax: true

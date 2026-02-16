@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PPS Analysis 4"
+title: "PPS Analysis 4——ε_(ω^(ω^(ε_0+1)+1))~ε_ε_(ε_0+ω^ω)"
 date: 2026-02-16 10:00:00 +0800
 categories: googology analysis pps
 mathjax: true
