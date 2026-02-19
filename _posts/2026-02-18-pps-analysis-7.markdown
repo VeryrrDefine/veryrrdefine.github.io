@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "PPS Analysis 7——ε_ε_ε_ε_ε_0~"
+title: "PPS Analysis 7——ε_ε_ε_ε_ε_0~ε_ε_ε_ε_ε_(ε_0*ω)"
 date: 2026-02-18 15:10:00 +0800
 categories: googology analysis pps
 mathjax: true
