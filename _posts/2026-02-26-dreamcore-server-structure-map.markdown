@@ -26,5 +26,7 @@ upstairsinfinite-->9inf
 2-->parkour[跑酷圣地]
 parkour-->2
 darkhall-->2
+2-->fastslider[滑滑梯]
+fastslider-->2
 
 </div>
