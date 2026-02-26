@@ -6,12 +6,11 @@ mathjax: true
 mermaid: true
 ---
 
-```mermaid
+<div class="mermaid">
 flowchart LR
 
 A[出生点] --> 1[泳池1]
 1-->1_1[有墙壁的走廊]-->1_2[10几个假按钮的地方]--上楼-->9inf[图书馆]
-
 
 9inf-->2[泳池2]
 
@@ -27,4 +26,5 @@ upstairsinfinite-->9inf
 2-->parkour[跑酷圣地]
 parkour-->2
 darkhall-->2
-```
+
+</div>

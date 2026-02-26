@@ -29,6 +29,10 @@
     {% if jekyll.environment == 'production' and site.google_analytics %}
     {% include google-analytics.html %}
     {% endif %}
+
+    {% if page.mermaid%}
+    <script src="/assets/js/mermaid.min.js"></script>
+    {% endif %}
     {% if page.mathjax %}
     <script>
         MathJax = {
