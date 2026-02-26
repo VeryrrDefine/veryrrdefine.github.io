@@ -25,12 +25,14 @@ malason--白色-->road3[草原道路&房子]
 2--开头右转左边的草方块-->road3
 road3-->upstairsinfinite[破碎]
 upstairsinfinite--上楼到终点-->9inf
-2--巨大黑洞-->level9like[神似Level9的地方]-->darkhall[神秘暗走廊]
+2--巨大黑洞-->level9like[神似Level9的地方]-->darkhall[暗走廊]-->darkhallrooms
+darkhallrooms[暗走廊房间]--最下一层全是安全出口的房间-->2
 2-->parkour[跑酷圣地]
 
 parkour-->2
 darkhall-->2
 2-->fastslider[滑滑梯]
+2-->繁茂洞穴[繁茂洞穴,我没去过]
 fastslider-->2
 2-->某个神秘通道-->deepseek[dreamcore:dark，深水区]
 deepseek-->lxlt1[螺旋楼梯dreamcore:dark]-->lxlt2[螺旋楼梯 How tall]--jump-->2
