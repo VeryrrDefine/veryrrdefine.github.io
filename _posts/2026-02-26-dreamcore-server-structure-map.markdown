@@ -28,5 +28,11 @@ parkour-->2
 darkhall-->2
 2-->fastslider[滑滑梯]
 fastslider-->2
+2-->某个神秘通道-->bluetunnel
+bluetunnel-->ducksea[dreamcore:dark，深水区]
+ducksea-->lxlt1[螺旋楼梯dreamcore:dark]-->lxlt2[螺旋楼梯 How tall]-->jump
+ducksea-->whichway
+whichway--left-->2
+whichway-->right
 
 </div>
