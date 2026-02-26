@@ -20,7 +20,7 @@ A[出生点] --> 1[泳池1]
 malason--黑色-->6[神似Level6的地方]
 2--上楼在某个角落附近的断层楼梯-->1
 6--找神秘光源-->2
-6--找问号-->redbrick[红砖迷宫]
+6--找问号-->redbrick[红砖迷宫]-->ducksea["Dusksea(炸大树圣地)"]
 malason--白色-->road3[草原道路&房子]
 2--开头右转左边的草方块-->road3
 road3-->upstairsinfinite[破碎]
@@ -32,13 +32,13 @@ parkour-->2
 darkhall-->2
 2-->fastslider[滑滑梯]
 fastslider-->2
-2-->某个神秘通道-->ducksea[dreamcore:dark，深水区]
-ducksea-->lxlt1[螺旋楼梯dreamcore:dark]-->lxlt2[螺旋楼梯 How tall]--jump-->2
-ducksea-->whichway
+2-->某个神秘通道-->deepseek[dreamcore:dark，深水区]
+deepseek-->lxlt1[螺旋楼梯dreamcore:dark]-->lxlt2[螺旋楼梯 How tall]--jump-->2
+deepseek-->whichway
 whichway--left-->2
 whichway-->right["right(cannot pass)"]
 2-->dreamcorelight[dreamcore:light]
-dreamcorelight-->ducksea
+dreamcorelight-->deepseek
 
 </div>
 
