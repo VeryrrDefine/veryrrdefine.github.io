@@ -47,6 +47,7 @@ dreamcorelight-->deepseek
 redbrick--结尾尽头左边的门-->2
 
 upstairsinfinite--右边下去有个按钮-->lxlt2
+darkhallrooms--顶楼，左边第一个走廊右边房间-->backrooms["TheEnd"]--右左左右左-->2
 
 </div>
 
@@ -54,6 +55,10 @@ upstairsinfinite--右边下去有个按钮-->lxlt2
 
 1. 记得多领苹果
 2. 视力测试不知道怎么走可以用F3+G,有一定的帮助
+
+### dreamcore:light进入方法
+
+在全是洞的泳池，角落xy最小值，向正x轴侧面(x面)第三个洞，右转，向下，朝负x轴前进，向上
 
 ### 成就
 
