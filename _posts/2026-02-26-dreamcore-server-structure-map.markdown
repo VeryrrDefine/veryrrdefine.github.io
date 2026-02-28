@@ -49,6 +49,8 @@ redbrick--结尾尽头左边的门-->2
 upstairsinfinite--右边下去有个按钮-->lxlt2
 darkhallrooms--顶楼，左边第一个走廊右边房间-->backrooms["TheEnd"]--右左左右左-->2
 
+redbrick--结尾尽头从左边往后面数第三个门-->dusksea["DuskSea"]-->2
+
 </div>
 
 ## 帮助
