@@ -25,9 +25,9 @@ malason--白色-->road3[草原道路&房子]
 2--开头右转左边的草方块-->road3
 road3-->upstairsinfinite[破碎]
 upstairsinfinite--上楼到终点-->9inf
-2--巨大黑洞-->level9like[神似Level9的地方]-->darkhall[暗走廊]--左-->darkhallrooms
-darkhall--右-->2
-darkhallrooms[暗走廊房间]--最下一层全是安全出口的房间-->road3
+2--巨大黑洞-->level9like[神似Level9的地方]-->darkhall[暗走廊]--右-->darkhallrooms
+darkhall--左-->2
+darkhallrooms[暗走廊房间]-->全是安全出口的房间-->road3
 2-->parkour[跑酷圣地]
 
 parkour-->2
@@ -47,7 +47,7 @@ dreamcorelight-->deepseek
 redbrick--结尾尽头左边的门-->2
 
 upstairsinfinite--右边下去有个按钮-->lxlt2
-darkhallrooms--顶楼，左边第一个走廊右边房间-->backrooms["TheEnd"]--右左左右左-->2
+darkhallrooms-->pl2["顶楼，左边第一个走廊右边房间"]-->backrooms["TheEnd"]--右左左右左-->2
 
 redbrick--结尾尽头从左边往后面数第三个门-->dusksea["DuskSea"]-->2
 
