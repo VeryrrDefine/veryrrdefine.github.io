@@ -17,15 +17,15 @@
         </div>
         <script src="https://unpkg.com/katex@0.16.28/dist/katex.min.js" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/katex@0.16.28/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-        <!-- <link rel="stylesheet" href="https://unpkg.com/katex@0.16.28/dist/katex.min.css" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="https://unpkg.com/katex@0.16.28/dist/katex.min.css" crossorigin="anonymous">
     </div>
     <script>
         const defaultMacros = {
             "\\w": "\\omega",
             "\\W": "\\Omega",
             "\\m": "\\cdot",
-            '\\D': "\\W_{a+1}"
-
+            '\\D': "\\W_{a+1}",
+            '\\eps': "\\varepsilon",
         }
         fetch("analyze.tex").then((resp) => {
             return resp.text()

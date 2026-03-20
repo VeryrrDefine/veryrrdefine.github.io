@@ -53,3 +53,8 @@ exclude:
   - vendor/ruby/
   - CNAME
   - olds/
+
+include:
+  - olds/style.css
+  - olds/analyze.tex
+  - olds/analyzelist.html

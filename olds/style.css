@@ -42,9 +42,6 @@ body {
     min-height: 100vh;
     
 }
-.katex-html {
-    display: none;
-}
 a:-webkit-any-link {
     color: hsl(120, 100%, 41%) !important;
 }
