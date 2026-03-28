@@ -65,10 +65,6 @@
         <div class="output" id="output"></div>
     </div>
 
-
-    <script src="https://unpkg.com/katex@0.16.28/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/katex@0.16.28/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://unpkg.com/katex@0.16.28/dist/katex.min.css" crossorigin="anonymous">
     <script>
         class Ordinal {
             constructor(terms = []) {
@@ -181,26 +177,6 @@
                 }).join("+");
             }
 
-            static printLatex(o) {
-                if (o.isZero()) return "0";
-                return o.terms.map(([e, c]) => {
-                    let expStr;
-                    if (e.isZero()) {
-                        expStr = "";
-                    } else {
-                        const expPrint = Ordinal.printLatex(e);
-                        if (expPrint === "1") {
-                            expStr = "\\omega";
-                        } else {
-                            expStr = `\\omega^{${expPrint}}`;
-                        }
-                    }
-                    if (expStr === "") return String(c);
-                    if (c === 1) return expStr;
-                    return expStr + "\\times" + c;
-                }).join("+");
-            }
-
             static readStr(str) {
                 let i = 0;
 
@@ -292,6 +268,25 @@
 
                 let res = parseExpr();
                 return res;
+            }
+            static printLatex(o) {
+                if (o.isZero()) return "0";
+                return o.terms.map(([e, c]) => {
+                    let expStr;
+                    if (e.isZero()) {
+                        expStr = "";
+                    } else {
+                        const expPrint = Ordinal.printLatex(e);
+                        if (expPrint === "1") {
+                            expStr = "\\omega";
+                        } else {
+                            expStr = `\\omega^{${expPrint}}`;
+                        }
+                    }
+                    if (expStr === "") return String(c);
+                    if (c === 1) return expStr;
+                    return expStr + "\\times" + c;
+                }).join("+");
             }
         }
 
@@ -432,25 +427,22 @@
             }
 
             static cmpStrength(a, b) {
-                let curA = a;
-                let curB = b;
+                let curA = fffz.fullUnnest(a);
+                let curB = fffz.fullUnnest(b);
 
                 while (true) {
                     if (curA.isZero && curB.isZero) return 0;
                     if (curA.isZero) return -1;
                     if (curB.isZero) return 1;
-
-                    curA = fffz.strongCore(curA);
-                    curB = fffz.strongCore(curB);
                     if (fffz.equals(curA, curB)) return 0;
 
-                    const compatA = fffz.isCompatible([curA, fffz.add(curA, curB)]);
-                    const compatB = fffz.isCompatible([curB, fffz.add(curB, curA)]);
+                    const compatA = fffz.isUpProj([curA, fffz.add(curA, curB)]) || fffz.isDownProj([curA, fffz.add(curA, curB)]);
+                    const compatB = fffz.isUpProj([curB, fffz.add(curB, curA)]) || fffz.isDownProj([curB, fffz.add(curB, curA)]);
                     if (compatA && !compatB) return 1;
                     if (!compatA && compatB) return -1;
 
-                    curA = curA.core;
-                    curB = curB.core;
+                    curA = fffz.fullUnnest(curA.core);
+                    curB = fffz.fullUnnest(curB.core);
                 }
             }
 
@@ -522,6 +514,34 @@
                 } else {
                     return fffz.zero();
                 }
+            }
+            printLatex() {
+                if (this.isZero) return "0";
+
+                if (fffz.equals(this, fffz.epZero)) return "\\varepsilon_0";
+                if (fffz.isLess(this, fffz.epZero)) {
+                    const ord = fffz.fffzToOrdinal(this);
+                    if (ord !== null) {
+                        return Ordinal.printLatex(ord);
+                    }
+                }
+
+                const arr = [...this.fake, this.core];
+                const inner = arr.map(x => x.printLatex());
+                if (inner.length == 1) {
+                    return `\\psi_Z(${inner[0]})`
+                }
+                let res = "\\psi_Z[";
+                for (let i = 0; i < inner.length - 1; i++) {
+                    res += inner[i];
+                    if (i + 1 != inner.length - 1) {
+                        res += ","
+                    }
+                }
+                res += "]";
+                res += `(${inner.at(-1)})`;
+                return res;
+
             }
 
             static fullPeel(a, b) {
@@ -763,22 +783,23 @@
             }
 
             static isDownProj(fake) {
-                //const key = fake.map(x => x.printFancy()).join(',');
-                //console.log("isDownProj called on", key);
+                if (!Array.isArray(fake) || fake.length !== 2) return false;
+                const core0 = fffz.strongCore(fake[0]).core;
+                const core1 = fffz.strongCore(fake[1]).core;
 
-                if (!Array.isArray(fake) || fake.length < 2) return false;
-                if (fake.length === 2 && fake[0].isStrong() && fake[1].isStrong()) return false;
+                if (core0.isSucc()) return false;
+
+                const cmp = fffz.cmpStrength(core0, core1);
+                if (cmp === 1) return true;
+                if (cmp === 0 && fffz.isLess(core1, core0)) return true;
+                return false;
+            }
+
+            static isStrengthDesc(fake) {
+                if (!Array.isArray(fake) || fake.length < 3) return false;
 
                 for (let i = 0; i < fake.length - 1; i++) {
-                    const strongI = fffz.strongCore(fake[i]).core;
-                    const strongI1 = fffz.strongCore(fake[i + 1]).core;
-                    if (strongI.isSucc() && strongI1.isSucc()) return false;
-                }
-
-                for (let i = 0; i < fake.length - 1; i++) {
-                    const prev = fake[i];
-                    const cur = fake[i + 1];
-                    if (fffz.cmpStrength(prev, cur) !== 1) return false;
+                    if (fffz.cmpStrength(fake[i], fake[i + 1]) !== 1) return false;
                 }
                 return true;
             }
@@ -863,6 +884,7 @@
                 else if (fffz.isUpProj(fake)) result = true;
                 else if (fffz.isCantorTrail(fake)) result = true;
                 else if (fffz.isDownProj(fake)) result = true;
+                else if (fffz.isStrengthDesc(fake)) result = true;
                 else if (fffz.isTranslate(fake)) result = true;
                 else result = false;
 
@@ -1143,35 +1165,6 @@
                 return `Z[${inner}]`;
             }
 
-            printLatex() {
-                if (this.isZero) return "0";
-
-                if (fffz.equals(this, fffz.epZero)) return "\\varepsilon_0";
-                if (fffz.isLess(this, fffz.epZero)) {
-                    const ord = fffz.fffzToOrdinal(this);
-                    if (ord !== null) {
-                        return Ordinal.printLatex(ord);
-                    }
-                }
-
-                const arr = [...this.fake, this.core];
-                const inner = arr.map(x => x.printLatex());
-                if (inner.length == 1) {
-                    return `\\psi_Z(${inner[0]})`
-                }
-                let res = "\\psi_Z[";
-                for (let i = 0; i < inner.length - 1; i++) {
-                    res += inner[i];
-                    if (i + 1 != inner.length - 1) {
-                        res += ","
-                    }
-                }
-                res += "]";
-                res += `(${inner.at(-1)})`;
-                return res;
-
-            }
-
             static buildNat(n) {
                 if (n === 0) return fffz.zero();
                 let one = new fffz([], fffz.zero(), false);
@@ -1352,12 +1345,16 @@
 
                 document.getElementById('output').innerHTML = strLimit + "<br>序数形式: " + katex.renderToString(fres.printLatex(), {
                     throwOnError: false
-                })
+                }) + "<br>" + fres.printFancy()
             } catch (e) {
                 document.getElementById('output').innerHTML = "出错：" + e.message;
             }
         }
     </script>
+
+    <script src="https://unpkg.com/katex@0.16.28/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/katex@0.16.28/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/katex@0.16.28/dist/katex.min.css" crossorigin="anonymous">
 </body>
 
 </html>
