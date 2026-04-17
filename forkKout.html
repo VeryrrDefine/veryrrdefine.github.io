@@ -1,0 +1,14 @@
+<title>Fork Koukou</title>
+<script>
+    function getQueryParams(url) {
+        var queryParams = {};
+        var regex = /[?&]([^=#]+)=([^&#]*)/g;
+        var match;
+        while (match = regex.exec(url)) {
+            queryParams[match[1]] = decodeURIComponent(match[2]);
+        }
+        return queryParams;
+    }
+    var url2 = getQueryParams(location.href).destination
+    if (url2) location.href = `http://veryrrdefine.dns.army:3065/${url2}`;
+</script>
