@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background:  linear-gradient(135deg, hsl(216, 33%, 3%), hsl(216, 100%, 16%));
+  min-height: 100vh;
+}
+
+/* 容器 */
+.container {
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* 头部 */
+header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding: 40px;
+  background: linear-gradient(135deg, hsl(229, 76%, 33%) 0%, hsl(270, 37%, 46%) 100%);
+  border-radius: 7px;
+  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+  color: white;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+header p.tagline {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+/* 主内容区 */
+main {
+  background: rgb(0, 30, 87);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #eee;
+}
+
+.intro p {
+  font-size: 1.1rem;
+  color: #dadada;
+  margin-bottom: 15px;
+}
+
+.status {
+  display: inline-block;
+  padding: 8px 20px;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* 博客文章列表 */
+.blog-section h2 {
+  font-size: 1.5rem;
+  color: #dadada;
+  margin-bottom: 30px;
+  padding-left: 15px;
+  border-left: 4px solid #667eea;
+}
+
+.blog-list {
+  list-style: none;
+}
+
+.blog-item {
+  padding: 25px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-item:last-child {
+  border-bottom: none;
+}
+
+.blog-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.blog-item a {
+  text-decoration: none;
+  color: #f7f7f7;
+  display: block;
+}
+
+.blog-item a:hover {
+  color: #667eea;
+}
+
+.blog-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.blog-item p {
+  color: #00dcd1;
+  font-size: 0.95rem;
+}
+
+.blog-item .date {
+  color: #bd00a4;
+
+}
+
+/* 页脚 */
+footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+footer p {
+  background: rgba(163, 0, 160, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .container {
+    padding: 20px 15px;
+  }
+  
+  main {
+    padding: 25px;
+  }
+  
+  .blog-item:hover {
+    transform: none;
+  }
+}
