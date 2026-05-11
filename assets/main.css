@@ -166,3 +166,11 @@ footer p {
     transform: none;
   }
 }
+
+.indent {
+    text-indent: 2rem;
+}
+
+a{
+    color: #ee00ff
+}
