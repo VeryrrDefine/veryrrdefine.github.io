@@ -60,7 +60,7 @@ main {
 
 .intro p {
   font-size: 1.1rem;
-  color: #dadada;
+  color: rgb(255, 255, 255);
   margin-bottom: 15px;
 }
 
@@ -124,7 +124,7 @@ main {
 }
 
 .blog-item .date {
-  color: #bd00a4;
+  color: #58bd00;
 
 }
 
