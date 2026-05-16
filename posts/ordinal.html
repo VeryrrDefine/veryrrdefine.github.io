@@ -64,8 +64,62 @@
         <h2>序数的运算</h2>
         <p class="indent">我们提出疑问：$\omega+1$是什么？$1+\omega^2$又是什么？我们就要定义序数运算。</p>
         <p class="indent">对于加法，我们有$$\begin{array}{l}\alpha+0=\alpha \\ \alpha+S(\beta)=S(\alpha+\beta) \\
-          \alpha+\beta=\bigcup_{\gamma\lt\beta}^{\alpha+\gamma} \end{array}$$（其中的$\gamma$是极限序数）</p>
-
+          \alpha+\beta=\bigcup_{\gamma\lt\beta} {\alpha+\gamma} \end{array}$$（其中的$\gamma$是极限序数,$S(x)$表示$x$的后继，
+          $S(x)=x\cup\{x\}$）</p>
+        <p class="indent">对于乘法，我们有$$\begin{array}{l}\alpha\times0=0\\ \alpha\times S(\beta)=(\alpha\times\beta)+\alpha\\
+          \alpha\times\beta = \bigcup_{\gamma\lt\beta} {\alpha\times\gamma}
+          \end{array}$$（其中的$\gamma$是极限序数）</p>
+        <p class="indent">对于幂运算，我们有$$\begin{array}{l}\alpha^0=1\\ \alpha^{S(\beta)}=\alpha^\beta\times\beta\\
+          \alpha^\beta = \bigcup_{\gamma\lt\beta} {\alpha^\gamma}
+          \end{array}$$（其中的$\gamma$是极限序数）</p>
+        <p class="indent">我们一般简写$\alpha\times\beta=\alpha\beta$。</p>
+        <p class="indent">我们有$1+\omega=\omega$, $1+\omega\times2=\omega\times2$。这一点有些奇怪，加法交换律和乘法交换律在序数中并不总是成立。
+          $1+\omega$相当于$1,2,3,4,\cdots$，就是$\omega$。$\omega\times2$表示的是2个$\omega$相加。$2\times\omega$表示的是$\omega$个2相加，相当于$2,4,6,8,10,\cdots$,也是$\omega$。
+        </p>
+        <p class="indent">我们可以证明乘法分配律的一部分成立，$\alpha\times(\beta+\gamma) = \alpha\times\beta+\alpha\times\gamma$。
+          幂运算的一个性质$\alpha^{\beta+\gamma} = \alpha^\beta \times \alpha^\gamma$也成立。总之自然数里成立的部分运算法则在序数中并不总是成立。
+        </p>
+        <h2>序关系</h2>
+        <p class="indent">序数比较大小，$\alpha\le\beta \leftrightarrow
+          \alpha\in\beta$，例如$3\le5$，就是$3\in5$,$3\in\{0,1,2,3,4\}$。
+        </p>
+        <p class="indent">我们可以定义$\alpha\gt\beta\leftrightarrow\neg
+          \alpha\le\beta$,$\alpha\ge\beta\leftrightarrow\alpha\gt\beta\vee\alpha=\beta$，其他比较大小的方式也可以这样子定义。</p>
+        <p class="indent">其实序数大小，没必要介绍这么多。我们有$x+1>x$,$x[n]\lt x$就可以了。</p>
+        <h2>非递归序数和不可数序数</h2>
+        <p class="indent">这里我们引入2个序数，$\omega_1$和$\omega_1^{\mathrm{CK}}$，$\omega_1$是第一个不可数序数，类似于$\mathcal
+          P(\omega)$。$\omega_1^{\mathrm{CK}}$是第一个非递归序数。而$\omega,\omega^2,\omega^{\omega}$之类的都叫递归序数，递归序数可以“自下而上”得到,例如$\omega^{\omega^{\omega^\cdots}}$也是递归序数。
+          $\omega_1^{\mathrm{CK}}$的特殊之处是不能“自下而上”得到，类似于Busy Beaver函数和可计算函数。
+        </p>
+        <p class="indent">$\omega_1$是第一个不可数序数，也是不能“自下而上”得到的</p>
+        <h2>基本列</h2>
+        <p class="indent">上文提到了$x[n]$，这是序数基本列的一种表达方式</p>
+        <p class="indent">
+          基本列表示极限序数以下的序数的东西，例如$\omega$有一个基本列是$\{1,2,3,114514,1919810,TREE(3)\cdots\}$，有很多有限序数，它们的上确界是$\omega$（上确界$\sup
+          X=$最小的大于等于X中所有元素的序数，这里X不能是“全体序数”。）</p>
+        <p class="indent">
+          我们一般指定$\omega$的基本列是$\{0,1,2,3,4,\cdots\}$。我们可以定义其他极限序数的基本列,例如$\omega\times2=\sup\{\omega,\omega+1,\omega+2,\omega3,\cdots\}$
+        </p>
+        <p class="indent">部分序数有一些特殊的基本列叫递归基本列。$\omega=\sup\{0,1,2,3,4,\cdots\}$，这就是一个递归基本列。序数有“共尾度”，同样分为递归和“其他”。</p>
+        <p class="indent">
+          $\omega_1^{\mathrm{CK}}$有长度为$\omega$的基本列，但不是递归基本列。$\omega_1^{\mathrm{CK}}$可以枚举所有可计算函数的增长率得到，换句话说，它是在可计算良序（computable
+          well-orderings）的序型（order types）集合中的上确界。</p>
+        <p class="indent">$\omega_1$没有基本列（一说有长度为$\omega_1$的基本列）。</p>
+        <p class="indent">
+          共尾度是极限(?)序数的一个概念，例如$\omega$的共尾度是$\omega$，$\omega_1^{\mathrm{CK}}$的共尾度是$\omega$,$\omega_1$的共尾度是$\omega_1$，类似于“基本列的长度”。
+        </p>
+        <h2>不动点</h2>
+        <p class="indent">
+          我们可以发现$1+\omega=\omega$，如果$f(x)=1+x$，那么$\omega$就是$f(x)$的一个不动点。类似的不动点有很多个，例如$\omega+1,\omega+2,\omega+3,\omega2,\omega^2,\omega^\omega\cdots$,
+          所有$\ge\omega$的序数都满足$f(x)=x$。</p>
+        <p class="indent">部分函数没有不动点，例如$f(x)=x+1$，如果引入一个不动点，那么会引发矛盾。</p>
+        <p class="indent">$2^\omega=\omega$，$\omega\times\omega^\omega=\omega^\omega$,……。</p>
+        <h2>$\varepsilon_\alpha$序数</h2>
+        <p class="indent">
+          我们观察$f(x)=\omega^x$，可以发现它有一个不动点，这可以通过幂运算的定义得到。设$\varepsilon_0=\omega^{\omega^{\omega^\cdots}}$，
+          我们可以得到$\omega^{\varepsilon_0}=\varepsilon_0$。那怎么样跳出这个$\omega^{\eps_0}$不动点呢？那么把这个$\eps_0+1$就可以调出来了。
+        </p>
+        <p class="indent">$\omega^{\eps_0+1}=\eps_0\omega$，我们就有$\eps_1=\omega^{\cdots\omega^{\eps_0+1}} (n\in N)$</p>
       </section>
     </main>
 
