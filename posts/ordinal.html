@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VeryrrDefine's blog | VeryrrDefine's blog.</title>
+  <meta property="og:title" content="VeryrrDefine's blog" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="description" content="VeryrrDefine's blog." />
+  <meta property="og:description" content="VeryrrDefine's blog." />
+  <link rel="canonical" href="/posts/ordinal.html" />
+  <link rel="icon" href="/favicon.png" />
+  <link rel="stylesheet" href="/assets/main.css">
+  <meta property="og:url" content="/posts/ordinal.html" />
+  <meta property="og:site_name" content="VeryrrDefine's blog" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta property="twitter:title" content="VeryrrDefine's blog" />
+  <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"WebSite","description":"VeryrrDefine's blog.","headline":"VeryrrDefine's blog","name":"VeryrrDefine's blog","url":"/"}
+  </script>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>序数</h1>
+      <p class="tagline">0<sup>th</sup>,1<sup>st</sup>,2<sup>nd</sup>,...后面是什么？</p>
+    </header>
+
+    <main>
+      <section class="intro">
+        <img src="/assets/imgs/ordinal1.png" style="max-width: 30%;"
+          alt="0, 0.5, 0.75, 0.875... 1, 1.125, 1.1875, 1.21875..., 1.25, ...,1.375,...,1.4375,...,... 1.5" />
+        <p>有没有想过如何排序这个图片里的所有间断点？</p>
+      </section>
+
+      <section class="blog-content">
+        <h2>“无穷”个间断点</h2>
+        <p class="indent">这篇文章介绍的是序数的概念。开头的函数图像，是伪燃烧数函数。它的定义如下：</p>
+        <p>$$\begin{array}{l}f(x)=\left\{\begin{matrix} -x
+          &x\lt0\\\frac{1}{2}f(x-f(x-1))&x\ge0\\\end{matrix}\right.\end{array} $$</p>
+        <p class="indent">第1个间断点位于$x=0$处，第二个间断点位于$x=0.5$处，第3,4,5...个间断点分别位于$\frac{3}{4}, \frac{7}{8}, \frac{15}{16},
+          \frac{30}{31},\cdots\frac{2^n-1}{2^n},\cdots$多的根本数不完。我们要问：那$x=1$的间断点是第几个呢？很明显，是第“无穷大”个，但这里的无穷大，我们可以指$x=1.25$的那个点，也可以指$x=1.5$那个点。
+          所以就有了序数。
+        </p>
+        <h2>用序数表示“无穷”...是“无穷”吗？</h2>
+        <p class="indent">序数是自然数的推广，我们有集合$\mathbb N$，以及后继函数$S(x)=x\cup {x}$，ZFC的无穷公理保证存在一个集合$A$使得$\emptyset \in
+          A(0=\emptyset)$且$\forall x\in A, S(x) \in A$。这个集合是$\mathbb
+          N$。不过我们将其记作$\omega$。$0,1,2,3,\cdots$这些都是序数。
+          序数是在$\in$序上良序的传递集（传递集即满足每个元素都是自身的子集，良序相当于没有无穷降链（例如$-1\gt-2\gt-3\gt-4\cdots$，不够严谨））。</p>
+        <p class="indent">
+          $\omega$是序数，$\omega+1$也是序数。有了$\omega$这个比所有自然数大的序数，我们就可以标记上文中$x=1$的间断点了，这就是第$\omega$个，序数的“序”也许就体现在这里。
+          $x=1.125$是第$\omega+1$个间断点，$x=1.1875$是第$\omega+2$个间断点，$x=1.1875$到$x=1.125$间有无穷个间断点,
+          $x=1.125$就是第$\omega\cdot2$个间断点。$x=1.375$是第$\omega\cdot3$个间断点，$x=1.4375$是第$\omega\cdot4$个间断点，
+          我们用完了所有$\omega\cdot
+          n$。我们可以有$\omega^2$（ZFC替换公理）。$x=1.5$就是第$\omega^2$个间断点。（进一步的我们有$2\rightarrow\omega^\omega,
+          3\rightarrow\omega^{\omega^\omega}\cdots$）
+        </p>
+        <h2>序数的运算</h2>
+        <p class="indent">我们提出疑问：$\omega+1$是什么？$1+\omega^2$又是什么？我们就要定义序数运算。</p>
+        <p class="indent">对于加法，我们有$$\begin{array}{l}\alpha+0=\alpha \\ \alpha+S(\beta)=S(\alpha+\beta) \\
+          \alpha+\beta=\bigcup_{\gamma\lt\beta}^{\alpha+\gamma} \end{array}$$（其中的$\gamma$是极限序数）</p>
+
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 VeryrrDefine. All rights reserved.</p>
+    </footer>
+  </div>
+
+
+  <script src="https://unpkg.com/katex@0.16.28/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/katex@0.16.28/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/katex@0.16.28/dist/katex.min.css" crossorigin="anonymous">
+
+  <script>
+    const defaultMacros = {
+      "\\w": "\\omega",
+      "\\W": "\\Omega",
+      "\\m": "\\cdot",
+      '\\D': "\\W_{a+1}",
+      '\\eps': "\\varepsilon",
+    }
+    renderMathInElement(document.body, {
+      delimiters: [
+        { left: '$$', right: '$$', display: true },
+        { left: '$', right: '$', display: false },
+        { left: '\\(', right: '\\)', display: false },
+        { left: '\\[', right: '\\]', display: true }
+      ],
+      throwOnError: false,
+      macros: defaultMacros
+    });
+  </script>
+</body>
+
+</html>
