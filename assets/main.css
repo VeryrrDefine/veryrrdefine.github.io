@@ -174,3 +174,9 @@ footer p {
 a{
     color: #ee00ff
 }
+
+
+section.content {
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
