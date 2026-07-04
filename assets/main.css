@@ -5,16 +5,16 @@
 }
 
 body {
-  
+
   line-height: 1.6;
   color: #fefefe;
-  background:  linear-gradient(135deg, hsl(216, 33%, 20%), hsl(216, 100%, 16%));
+  background: hsl(216, 100%, 16%);
   min-height: 100vh;
 }
 
 /* 容器 */
 .container {
-  max-width: 90%;
+  max-width: 95%;
   margin: 0 auto;
   padding: 40px 20px;
 }
@@ -24,9 +24,8 @@ header {
   text-align: center;
   margin-bottom: 60px;
   padding: 40px;
-  background: linear-gradient(135deg, hsl(229, 76%, 33%) 0%, hsl(270, 37%, 46%) 100%);
+  background: hsl(229, 76%, 33%);
   border-radius: 7px;
-  box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
   color: white;
 }
 
@@ -45,7 +44,7 @@ header p.tagline {
 
 /* 主内容区 */
 main {
-  background: hsl(279, 100%, 22%);
+  background: hsl(229, 76%, 33%);
   border-radius: 20px;
   padding: 40px;
   box-shadow: 0 5px 30px rgba(255, 0, 0, 0.2);
@@ -82,9 +81,10 @@ main {
   padding-left: 15px;
   border-left: 4px solid #667eea;
 }
-.blog-content>p{
-margin-top: 10px;
-margin-bottom: 10px;
+
+.blog-content>p {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .blog-list {
@@ -142,7 +142,7 @@ footer {
 }
 
 footer p {
-  background: rgba(163, 0, 160, 0.8);
+  background: hsl(229, 76%, 33%);
   padding: 15px;
   border-radius: 10px;
   display: inline-block;
@@ -153,26 +153,26 @@ footer p {
   header h1 {
     font-size: 1.8rem;
   }
-  
+
   .container {
     padding: 20px 15px;
   }
-  
+
   main {
     padding: 25px;
   }
-  
+
   .blog-item:hover {
     transform: none;
   }
 }
 
 .indent {
-    text-indent: 2rem;
+  text-indent: 2rem;
 }
 
-a{
-    color: #ee00ff
+a {
+  color: #22ff00
 }
 
 
