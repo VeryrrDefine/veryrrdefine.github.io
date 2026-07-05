@@ -143,7 +143,9 @@ footer {
 
 footer p {
   background: hsl(229, 76%, 33%);
-  padding: 15px;
+  padding: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 10px;
   display: inline-block;
 }
