@@ -18,9 +18,6 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
   <meta property="twitter:title" content="VeryrrDefine's Homepage" />
-  <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebSite","description":"VeryrrDefine's Homepage.","headline":"VeryrrDefine's Homepage","name":"VeryrrDefine's Homepage","url":"/"}
-  </script>
 </head>
 
 <body>
@@ -29,8 +26,12 @@
       <h1>VeryrrDefine's Homepage</h1>
       <p class="tagline">欢迎来到VeryrrDefine的主页。</p>
     </header>
-
     <main>
+
+      <section class="intro">
+        <p>The <b>very important</b> exam will start after <span id="veryimportant"></span> seconds.</p>
+      </section>
+
       <section class="intro">
         <p>分享技术、思考与馃槹。</p>
       </section>
@@ -43,10 +44,10 @@
         <h2>最新文章</h2>
         <ul class="blog-list">
           <li class="blog-item">
-            <a href="#">
-              <h3>Lorem ipsum</h3>
+            <a href="./posts/thisisnotanarticle.html">
+              <h3>这不是一篇文章</h3>
               <p class="date">2026年5月11日</p>
-              <p>一篇关于技术的思考文章</p>
+              <p>这真的是一篇文章吗？</p>
             </a>
           </li>
         </ul>
@@ -56,7 +57,13 @@
     <footer>
       <p>&copy; 2026 VeryrrDefine. All rights reserved.</p>
     </footer>
+    
   </div>
+  <script>
+    setInterval(() => {
+      veryimportant.innerHTML = ((1813885200000-Date.now())/1e3).toFixed(2)
+    },50)
+  </script>
 </body>
 
 </html>
