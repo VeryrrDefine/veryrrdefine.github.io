@@ -77,7 +77,16 @@ main {
 .blog-section h2 {
   font-size: 1.5rem;
   color: #dadada;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  border-left: 4px solid #667eea;
+}
+
+/* 博客文章列表 */
+.blog-ideas h2 {
+  font-size: 1.5rem;
+  color: #dadada;
+  margin-bottom: 20px;
   padding-left: 15px;
   border-left: 4px solid #667eea;
 }
