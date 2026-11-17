@@ -45,7 +45,7 @@ header p.tagline {
 /* 主内容区 */
 main {
   background: hsl(229, 76%, 33%);
-  border-radius: 20px;
+  border-radius: 7px;
   padding: 40px;
   box-shadow: 0 5px 30px rgba(255, 0, 0, 0.2);
 }
@@ -73,72 +73,27 @@ main {
   font-weight: 500;
 }
 
-/* 博客文章列表 */
-.blog-section h2 {
-  font-size: 1.5rem;
-  color: #dadada;
-  margin-bottom: 20px;
-  padding-left: 15px;
-  border-left: 4px solid #667eea;
-}
-
-/* 博客文章列表 */
-.blog-ideas h2 {
-  font-size: 1.5rem;
-  color: #dadada;
-  margin-bottom: 20px;
-  padding-left: 15px;
-  border-left: 4px solid #667eea;
-}
-
 .blog-content>p {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.blog-list {
-  list-style: none;
+
+h2::before {
+  content: '';
+  width: 5px;
+  height: 30px;
+  display: inline-block;
+  background-color: #00ffff;
+  margin: 5px;
+  position: relative;
+  top: 12px;
 }
 
-.blog-item {
-  padding: 25px 0;
-  border-bottom: 1px solid #f0f0f0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.blog-item:last-child {
-  border-bottom: none;
-}
-
-.blog-item:hover {
-  transform: translateX(10px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-}
-
-.blog-item a {
-  text-decoration: none;
-  color: #f7f7f7;
-  display: block;
-}
-
-.blog-item a:hover {
-  color: #667eea;
-}
-
-.blog-item h3 {
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.blog-item p {
-  color: #00dcd1;
-  font-size: 0.95rem;
-}
-
-.blog-item .date {
-  color: #58bd00;
-
+h2{
+  margin-bottom: 50px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #008eb9;
 }
 
 /* 页脚 */
@@ -190,4 +145,40 @@ a {
 section.content {
   margin-top: 10px;
   margin-bottom: 50px;
+}
+
+.set-card {
+  display: flex;
+  flex-direction: column;
+}
+.set-card-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+.set-card-column{
+  width: 90%;
+  border: 1px solid rgb(0, 204, 255);
+  background-color: rgb(0, 141, 177);
+  border-radius: 5px;
+  margin: 5px;
+  aspect-ratio: 3/2;
+  color: white;
+  box-shadow: 0 5px 30px rgb(0, 204, 255,0.2);
+  position: relative;
+
+}
+
+.jump-button {
+  position: absolute;
+  bottom:5px;
+  right: 5px;
+  border: 1px solid rgb(0, 204, 255);
+  border-radius: 3px;
+  padding: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  background-color: #008eb9;
+  color:white;
 }
